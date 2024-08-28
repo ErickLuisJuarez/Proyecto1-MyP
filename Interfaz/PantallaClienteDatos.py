@@ -6,7 +6,7 @@ window.minsize(width=800, height=800)
 window.config(padx=20, pady=20)
 
 lienzo = Canvas(width=200, height=200)
-logoaeropuerto = PhotoImage(file="/home/tomas/Documentos/Modelado/borrador1/LogoAeropuerto.png")
+logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
 lienzo.create_image(100, 100, image=logoaeropuerto)
 lienzo.grid(column=0, row=0, padx=(0, 10))
 

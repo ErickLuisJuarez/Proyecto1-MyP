@@ -11,17 +11,30 @@ from Cache import cache
 def cargar_datos_de_archivo():
     try:
         with open(cache.DATA_SET, newline='', encoding='utf-8') as archivo:
-            reader = csv.DictReader(archivo)
-            datos = list(reader)
-            # Validar que no haya valores nulos en las columnas clave
-            for fila in datos:
-                if any(fila[col] == '' for col in ['origin', 'destination', 'origin_latitude', 'origin_longitude', 'destination_latitude', 'destination_longitude']):
-                    raise ValueError("El archivo contiene valores nulos.")
-            print("Datos cargados y validados con éxito.")
+            lector = csv.DictReader(archivo)
+            datos = list(lector)
+            # Validación básica: verificar si hay filas
+            if not datos:
+                raise ValueError("El archivo está vacío.")
             return datos
-    except (FileNotFoundError, ValueError, KeyError) as error:
-        print(f"Error al cargar o validar los datos: {error}")
-        raise
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No se encontró el archivo {cache.DATA_SET}")
+    except csv.Error as error:
+        raise ValueError(f"Error al leer el archivo CSV: {error}")
+
+def validar_datos(datos):
+    for fila in datos:
+        # Validar tipo de datos para columnas numéricas
+        for columna, tipo in [('origin_latitude', float), ('origin_longitude', float),
+                             ('destination_latitude', float), ('destination_longitude', float)]:
+            try:
+                float(fila[columna])
+            except ValueError:
+                raise ValueError(f"El valor en la columna '{columna}' debe ser un número.")
+        # Validar valores nulos en columnas clave
+        if any(fila[col] == '' for col in ['origin', 'destination', 'origin_latitude', 'origin_longitude', 'destination_latitude', 'destination_longitude']):
+            raise ValueError("El archivo contiene valores nulos.")
+    print("Datos validados con éxito.")
 
 def obtener_coordenadas(datos, iata):
     for fila in datos:

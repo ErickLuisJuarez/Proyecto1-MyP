@@ -3,8 +3,7 @@ Código que gestiona y procesa los datos del archivo dataset1.cvs
 
 Creado por Erick Luis Juárez
 """
-# Se importa el módulo csv para manejo de archivos CSV
-import csv
+
 # Se importa el código cache de la carpeta Cache
 from Cache import cache
 

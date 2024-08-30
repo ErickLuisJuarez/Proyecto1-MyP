@@ -4,9 +4,6 @@ y buscar información almacenada en el cache
 
 Creado por Erick Luis Juárez
 """
-import csv
-
-from Cache import cache
 
 from dataset import cargar_datos_de_archivo, validar_datos, generar_diccionario_iatas
 

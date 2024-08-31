@@ -5,7 +5,7 @@ Creado por Erick Luis Juárez
 """
 
 # Se importa el código cache de la carpeta Cache
-from Cache import cache
+import cache
 
 def cargar_datos_de_archivo():
     """

@@ -7,6 +7,7 @@ Creado por Diego Eduardo Peña Villegas
 import csv
 import requests
 import json
+import os
 
 # Diccionario para almacenar los resultados en caché
 cache = {}
@@ -14,7 +15,8 @@ cache = {}
 # Configuración de URL base y clave de API
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 API_KEY = "f269d57ff986f7ce646dd2704e7494c5"
-DATA_SET = "dataset1.csv"  # Nombre del archivo de datos
+DIRECTORIO_RECURSOS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Resources'))
+DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1.csv')
 
 
 def cargar_datos_de_archivo(archivo):

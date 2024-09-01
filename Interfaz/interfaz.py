@@ -13,7 +13,7 @@ lienzo.grid(column=0, row=0)
 titulo1=Label(text="Consulta de clima", font=("Montserrat", 80, "bold"), fg="#011640")
 titulo1.grid(column=1, row=0)
 
-titulo1=Label(text="Selecciona tu rool", font=("Montserrat", 65, "bold"), fg="#3CA6A6")
+titulo1=Label(text="Selecciona tu rol", font=("Montserrat", 65, "bold"), fg="#3CA6A6")
 titulo1.grid(column=0, row=2, columnspan=3, pady=(20, 40))
 
 botoncliente = Button(text="Cliente", font=("Montserrat", 40, "bold"), fg="#026773")

@@ -51,7 +51,11 @@ LongitudDestino.grid(column=0, row=9, padx=(0, 10), pady=15)
 input = Entry(width= 20, font=("Montserrat", 15))
 input.grid(column=1, row=9)
 
-siguiente = Button(text="Siguiente", font=("Montserrat", 40, "bold"), fg="#026773")
-siguiente.grid(column=0, row=10, padx=30, pady=15, columnspan=3)
+BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
+siguiente = Button(image=BotonSiguiente, borderwidth=0)
+siguiente.grid(column=1, row=10)
 
+BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
+siguiente = Button(image=BotonRegreso, borderwidth=0)
+siguiente.grid(column=0, row=10)
 window.mainloop()

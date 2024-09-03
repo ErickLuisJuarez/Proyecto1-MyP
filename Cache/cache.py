@@ -48,6 +48,8 @@ def construir_url(lat, lon, part='minutely,hourly,daily'):
     Args:
         lat (str): Latitud.
         lon (str): Longitud.
+        part (str): Partes de la respuesta a excluir (opcional).
+
     Returns:
         str: URL completa para la solicitud.
     """

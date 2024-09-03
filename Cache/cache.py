@@ -41,7 +41,7 @@ def cargar_datos_de_archivo(archivo):
         raise
 
 
-def construir_url(lat, lon):
+def construir_url(lat, lon, part='minutely,hourly,daily'):
     """
     Construye la URL completa para la solicitud a la API de OpenWeatherMap.
 
@@ -51,7 +51,7 @@ def construir_url(lat, lon):
     Returns:
         str: URL completa para la solicitud.
     """
-    return BASE_URL.format(lat=lat, lon=lon, api_key=API_KEY)
+    return BASE_URL.format(lat=lat, lon=lon, part=part, api_key=API_KEY)
 
 def obtener_datos_desde_url(url):
     """

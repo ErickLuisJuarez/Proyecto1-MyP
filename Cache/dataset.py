@@ -91,35 +91,6 @@ def es_iata_valido(datos, iata):
             return True
     return False
 
-def obtener_nombres(datos):
-    """
-    Obtiene una lista de nombres únicos (códigos IATA de origen y destino)
-
-    Args:
-        datos (list): Lista de diccionarios representando las filas del archivo CSV.
-
-    Returns:
-        list: Lista de nombres únicos.
-    """
-    nombres = set()
-    for fila in datos:
-        nombres.add(fila['origin'])
-        nombres.add(fila['destination'])
-    return list(nombres)
-
-def nombre_valido(datos, nombre):
-    """
-    Verifica si un nombre (código IATA) es válido en los datos
-
-    Args:
-        datos (list): Lista de diccionarios representando las filas del archivo CSV.
-        nombre (str): Nombre a verificar.
-
-    Returns:
-        bool: True si el nombre es válido, False en caso contrario
-    """
-    return nombre in obtener_nombres(datos)
-
 def generar_diccionario_iatas(datos):
     """Genera un diccionario con las IATA como claves y sus registros como valores
     

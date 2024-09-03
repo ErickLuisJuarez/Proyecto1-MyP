@@ -4,7 +4,6 @@ Código que gestiona y procesa los datos del archivo dataset1.cvs
 Creado por Erick Luis Juárez
 """
 
-# Se importa el código cache de la carpeta Cache
 import cache
 
 def cargar_datos_de_archivo():
@@ -32,14 +31,12 @@ def validar_datos(datos):
         ValueError: Si los datos no son válidos.
     """
     for fila in datos:
-        # Validar tipo de datos para columnas numéricas
         for columna, tipo in [('origin_latitude', float), ('origin_longitude', float),
                              ('destination_latitude', float), ('destination_longitude', float)]:
             try:
                 float(fila[columna])
             except ValueError:
                 raise ValueError(f"El valor en la columna '{columna}' debe ser un número.")
-        # Validar valores nulos en columnas clave
         if any(fila[col] == '' for col in ['origin', 'destination', 'origin_latitude', 'origin_longitude', 'destination_latitude', 'destination_longitude']):
             raise ValueError("El archivo contiene valores nulos.")
     print("Datos validados con éxito.")

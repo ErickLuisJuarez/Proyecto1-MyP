@@ -18,7 +18,6 @@ def cargar_datos_y_generar_busqueda():
     validar_datos(datos)
     return generar_diccionario_iatas(datos)
 
-# Carga los datos y genera el diccionario de búsqueda
 diccionario_iatas = cargar_datos_y_generar_busqueda()
 
 def buscar_por_iata(iata, diccionario_iatas):

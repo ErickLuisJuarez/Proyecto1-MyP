@@ -9,12 +9,10 @@ import requests
 import json
 import os
 
-# Diccionario para almacenar los resultados en caché
 cache = {}
 
-# Configuración de URL base y clave de API
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
-API_KEY = "f269d57ff986f7ce646dd2704e7494c5"
+BASE_URL = "https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={api_key}&units=metric"
+API_KEY = "a7fe8465c127fbb019e08a08ab29d0bd"
 DIRECTORIO_RECURSOS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Resources'))
 DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1.csv')
 
@@ -50,12 +48,10 @@ def construir_url(lat, lon):
     Args:
         lat (str): Latitud.
         lon (str): Longitud.
-
     Returns:
         str: URL completa para la solicitud.
     """
-    return f"{BASE_URL}?lat={lat}&lon={lon}&appid={API_KEY}"
-
+    return BASE_URL.format(lat=lat, lon=lon, api_key=API_KEY)
 
 def obtener_datos_desde_url(url):
     """
@@ -75,6 +71,24 @@ def obtener_datos_desde_url(url):
         print(f"Error al realizar la solicitud a {url}: {e}")
         raise
 
+def extraer_informacion_relevante(json_data):
+    """
+    Extrae y muestra información relevante como la temperatura, humedad, y otros datos de la respuesta JSON
+
+    Args:
+        json_data (dict): Respuesta JSON de la API de OpenWeatherMap.
+
+    Returns:
+        dict: Diccionario con la información extraída.
+    """
+    información = {
+        "temperatura_actual": json_data['current']['temp'],
+        "humedad": json_data['current']['humidity'],
+        "presion": json_data['current']['pressure'],
+        "descripcion_clima": json_data['current']['weather'][0]['description'],
+        "velocidad_viento": json_data['current']['wind_speed'],
+    }
+    return información
 
 def cargar_datos_con_cache(archivo):
     """
@@ -89,36 +103,29 @@ def cargar_datos_con_cache(archivo):
     datos = cargar_datos_de_archivo(archivo)
 
     for fila in datos:
-        # Genera una clave para la caché basada en las coordenadas de origen
-        lat = fila.get('origin_latitude')
-        lon = fila.get('origin_longitude')
+        lat = fila.get('lat')
+        lon = fila.get('lon')
         
-        # Verifica que lat y lon no sean nulos o vacíos antes de continuar
         if not lat or not lon:
-            print(f"Coordenadas no válidas para {fila['origin']}.")
+            print(f"Coordenadas no válidas para el registro: {fila}.")
             continue
         
         cache_key = (lat, lon)
 
-        # Verifica si la solicitud ya está en la caché
         if cache_key not in cache:
-            # Construye la URL para la solicitud usando latitud y longitud
             url_completa = construir_url(lat, lon)
 
-            # Obtiene los datos desde la URL y los guarda en la caché
             try:
                 json_salida = obtener_datos_desde_url(url_completa)
-                cache[cache_key] = json_salida
+                cache[cache_key] = extraer_informacion_relevante(json_salida)
             except Exception as e:
-                print(f"Error al obtener datos para {fila['origin']} con coordenadas {lat}, {lon}: {e}")
+                print(f"Error al obtener datos para las coordenadas {lat}, {lon}: {e}")
         else:
-            print(f"Datos para {fila['origin']} con coordenadas {lat}, {lon} encontrados en caché.")
+            print(f"Datos para las coordenadas {lat}, {lon} encontrados en caché.")
 
     print("Datos procesados y almacenados en caché con éxito.")
     return cache
 
 
-# Para ejecutar el script directamente y cargar los datos con caché
 if __name__ == "__main__":
-    # Cargar datos y procesar con caché
     cache_resultado = cargar_datos_con_cache(DATA_SET)

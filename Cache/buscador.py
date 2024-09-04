@@ -1,3 +1,9 @@
+"""
+Código que sirve como buscador para consultar
+y buscar información almacenada en el cache.
+
+Creado por Erick Luis Juárez
+"""
 import datetime
 import cache
 from dataset import cargar_datos_de_archivo, validar_datos, generar_diccionario_iatas
@@ -10,7 +16,7 @@ def cargar_datos_y_generar_busqueda():
         dict: Diccionario donde cada clave es un código IATA y el valor es una lista de registros asociados.
     """
     try:
-        datos = cargar_datos_de_archivo(cache.DATA_SET)
+        datos = cargar_datos_de_archivo()
         validar_datos(datos)
         return generar_diccionario_iatas(datos)
     except FileNotFoundError:

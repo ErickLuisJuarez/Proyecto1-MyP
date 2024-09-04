@@ -11,10 +11,10 @@ lienzo.create_image(100, 100, image=logoaeropuerto)
 lienzo.grid(column=0, row=0, padx=(0, 10))
 
 titulo1=Label(text="Cliente", font=("Montserrat", 60, "bold"), fg="#011640")
-titulo1.grid(column=1, row=0, pady=20, sticky="w")
+titulo1.grid(column=1, row=0, sticky="w")
 
 titulo2=Label(text="Rellene los siguientes datos", font=("Montserrat", 25, "bold"), fg="#3CA6A6")
-titulo2.grid(column=0, row=1, columnspan=3, padx=150, sticky="n", pady=15)
+titulo2.grid(column=0, row=1, columnspan=3, padx=150, sticky="n")
 
 Origen=Label(text="Origen:", font=("Montserrat", 20, "bold"), fg="#026773")
 Origen.grid(column=0, row=3, padx=(0, 10), pady=15)

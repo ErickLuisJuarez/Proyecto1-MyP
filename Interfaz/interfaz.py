@@ -6,14 +6,14 @@ def pantalla_principal(window):
     for widget in window.winfo_children():
         widget.destroy()
 
-#window = Tk()
     window.title("Consulta de clima")
     window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 
-    lienzo = Canvas(window, width=200, height=200)
-    logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
-    lienzo.create_image(100, 100, image=logoaeropuerto)
+    
+    lienzo = Canvas(window, width=200, height=200) #.subsample(5.5)
+    window.logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
+    lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0)
 
     titulo1=Label(text="Consulta de clima", font=("Montserrat", 80, "bold"), fg="#011640")

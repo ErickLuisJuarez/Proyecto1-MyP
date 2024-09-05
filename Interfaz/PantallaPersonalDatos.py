@@ -1,13 +1,11 @@
 from tkinter import *
-
-from tkinter import *
+from PantallaRecomendacionesPersonal import pantalla_recomendaciones_personal
 
 def pantalla_personal_datos(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
 
     window.title("Personal")
-    #window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 
     imagen = Canvas(width=200, height=200)
@@ -47,11 +45,13 @@ def pantalla_personal_datos(window, pantalla_principal):
     input.grid(column=1, row=7)
 
     window.BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
-    siguiente = Button(window, image=window.BotonSiguiente, borderwidth=0)
+    siguiente = Button(window, image=window.BotonSiguiente, borderwidth=0, command=lambda:pantalla_recomendaciones_personal(window, pantalla_personal_datos, pantalla_principal))
     siguiente.grid(column=1, row=10)
+
+    ## esperar
+
+    ##########
 
     window.BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
     regreso = Button(window, image=window.BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=0, row=10)
-
-    #window.mainloop()

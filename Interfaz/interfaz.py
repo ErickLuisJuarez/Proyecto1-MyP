@@ -1,4 +1,5 @@
 from tkinter import *
+from PantallaIdPersonal import pantalla_personal
 
 window = Tk()
 window.title("Consulta de clima")
@@ -19,7 +20,8 @@ titulo1.grid(column=0, row=2, columnspan=3, pady=(20, 40))
 botoncliente = Button(text="Cliente", font=("Montserrat", 40, "bold"), fg="#026773")
 botoncliente.grid(column=1, row=3, padx=30, pady=15)
 
-botonpersonal = Button(text="Personal", font=("Montserrat", 40, "bold"), fg="#026773")
+botonpersonal = Button(text="Personal", font=("Montserrat", 40, "bold"), fg="#026773",
+                       command=lambda: pantalla_personal(window))
 botonpersonal.grid(column=1, row=4, padx=30, pady=15)
 
 window.mainloop()

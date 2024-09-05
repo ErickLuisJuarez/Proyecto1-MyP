@@ -1,32 +1,48 @@
 from tkinter import *
 
-window = Tk()
-window.title("Personal")
-window.minsize(width=800, height=800)
+def pantalla_personal(window):
+    for widget in window.winfo_children():
+        widget.destroy()
 
-imagen = Canvas(width=200, height=200)
-logo_img = PhotoImage(file="Recursos/LogoAeropuerto.png")
-imagen.create_image(100,100, image=logo_img)
-imagen.grid(column=0, row=0)
+    window.title("Personal")
 
-tituloPrincipal=Label(text="Personal", font=("Montserrat", 70, "bold"), fg="#011640")
-tituloPrincipal.grid(column=1, row=0, columnspan=2)
+    imagen = Canvas(width=200, height=200)
+    logo_img = PhotoImage(file="Recursos/LogoAeropuerto.png")
+    imagen.create_image(100,100, image=logo_img)
+    imagen.image = logo_img
+    imagen.grid(column=0, row=0)
 
-tituloSecundario=Label(text="Ingresa tu identificacion personal", font=("Montserrat", 20, "bold"), fg="#011640")
-tituloSecundario.grid(column=0, row=2, columnspan=2, padx=80)
+    tituloPrincipal=Label(window, text="Personal", font=("Montserrat", 70, "bold"), fg="#011640")
+    tituloPrincipal.grid(column=1, row=0, columnspan=2)
 
-pedirId=Label(text="ID:", font=("Montserrat", 15, "bold"), fg="#011526")
-pedirId.grid(column=0, row=3, sticky="E", pady=20)
+    tituloSecundario=Label(window, text="Por favor, ingresa tu identificación personal.", font=("Montserrat", 20, "bold"), fg="#011640")
+    tituloSecundario.grid(column=0, row=2, columnspan=2, padx=80)
 
-idDeEntrada = Entry(width=20, font=("Montserrat", 15))
-idDeEntrada.grid(column=1,row=3, sticky="W")
+    pedirId=Label(window, text="ID:", font=("Montserrat", 15, "bold"), fg="#011526")
+    pedirId.grid(column=0, row=3, sticky="E", pady=20)
 
-BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
-siguiente = Button(image=BotonSiguiente, borderwidth=0)
-siguiente.grid(column=1, row=10)
+    idDeEntrada = Entry(window, width=20, font=("Montserrat", 15))
+    idDeEntrada.grid(column=1,row=3, sticky="W")
 
-BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
-siguiente = Button(image=BotonRegreso, borderwidth=0)
-siguiente.grid(column=0, row=10)
+    mensaje_invalido = Label(window, text="", font=("Montserrat", 20), fg="red")
+    mensaje_invalido.grid(column=0, row=4, columnspan=2)
 
-window.mainloop()
+    BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
+    window.boton_siguiente_imagen = BotonSiguiente  # guardamos la referencia a la imagen
+    siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda:validar_id(window, idDeEntrada, mensaje_invalido))
+    siguiente.grid(column=1, row=10)
+
+    BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
+    window.boton_regreso_imagen = BotonRegreso  # guardamos la referencia a la imagen
+    regreso = Button(window, image=BotonRegreso, borderwidth=0)
+    regreso.grid(column=0, row=10)
+
+    def validar_id(window, idDeEntrada, mensaje_invalido):
+        pilot_id = idDeEntrada.get()
+
+        if len(pilot_id) == 10:  # el ID del personal siempre es de 10 caracteres
+            mensaje_invalido.config(text="")
+            # falta lo que pasará a continuación
+        else:
+            mensaje_invalido.config(text="ID incorrecto")
+

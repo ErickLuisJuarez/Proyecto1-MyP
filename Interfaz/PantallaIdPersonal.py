@@ -1,5 +1,5 @@
 from tkinter import *
-#from interfaz import pantalla_principal
+from PantallaPersonalDatos import pantalla_personal_datos
 
 def pantalla_personal(window, pantalla_principal):
     for widget in window.winfo_children():
@@ -43,7 +43,6 @@ def pantalla_personal(window, pantalla_principal):
 
         if len(pilot_id) == 10:  # el ID del personal siempre es de 10 caracteres
             mensaje_invalido.config(text="")
-            # falta lo que pasará a continuación
+            pantalla_personal_datos(window, pantalla_principal)
         else:
             mensaje_invalido.config(text="ID incorrecto")
-

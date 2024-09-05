@@ -1,5 +1,6 @@
 from tkinter import *
 from PantallaIdPersonal import pantalla_personal
+from PantallaClienteDatos import pantalla_cliente
 
 def pantalla_principal(window):
     for widget in window.winfo_children():
@@ -21,7 +22,8 @@ def pantalla_principal(window):
     titulo1=Label(text="Selecciona tu rol", font=("Montserrat", 65, "bold"), fg="#3CA6A6")
     titulo1.grid(column=0, row=2, columnspan=3, pady=(20, 40))
 
-    botoncliente = Button(window, text="Cliente", font=("Montserrat", 40, "bold"), fg="#026773")
+    botoncliente = Button(window, text="Cliente", font=("Montserrat", 40, "bold"), fg="#026773",
+                          command=lambda: pantalla_cliente(window, pantalla_principal))
     botoncliente.grid(column=1, row=3, padx=30, pady=15)
 
     botonpersonal = Button(window, text="Personal", font=("Montserrat", 40, "bold"), fg="#026773", 

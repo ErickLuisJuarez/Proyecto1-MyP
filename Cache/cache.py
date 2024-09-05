@@ -21,7 +21,7 @@ def cargar_datos_de_archivo(archivo):
     """
     Carga los datos desde un archivo CSV.
 
-    Args:
+    Argumentos:
         archivo (str): Ruta al archivo CSV.
 
     Returns:
@@ -45,7 +45,7 @@ def construir_url(lat, lon, part='minutely,hourly,daily'):
     """
     Construye la URL completa para la solicitud a la API de OpenWeatherMap.
 
-    Args:
+    Argumentos:
         lat (str): Latitud.
         lon (str): Longitud.
         part (str): Partes de la respuesta a excluir (opcional).
@@ -59,7 +59,7 @@ def obtener_datos_desde_url(url):
     """
     Realiza una solicitud HTTP GET a la URL especificada y devuelve la respuesta en formato JSON.
 
-    Args:
+    Argumentos:
         url (str): URL para realizar la solicitud.
 
     Returns:
@@ -77,7 +77,7 @@ def extraer_informacion_relevante(json_data):
     """
     Extrae y muestra información relevante como la temperatura, humedad, y otros datos de la respuesta JSON
 
-    Args:
+    Argumentos:
         json_data (dict): Respuesta JSON de la API de OpenWeatherMap.
 
     Returns:
@@ -96,7 +96,7 @@ def cargar_datos_con_cache(archivo):
     """
     Carga datos desde un archivo CSV y realiza solicitudes HTTP con caché para evitar duplicados.
 
-    Args:
+    Argumentos:
         archivo (str): Ruta al archivo CSV.
 
     Returns:

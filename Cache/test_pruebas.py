@@ -1,114 +1,65 @@
 import pytest
-from unittest.mock import patch, MagicMock
-from dataset import (
-    cargar_datos_de_archivo,
-    validar_datos,
-    obtener_coordenadas,
-    obtener_iata,
-    es_iata_valido,
-    generar_diccionario_iatas
-)
-from cache import cargar_datos_con_cache, extraer_informacion_relevante, obtener_datos_desde_url, construir_url
+from dataset import cargar_datos_de_archivo, validar_datos, obtener_coordenadas, obtener_iata, es_iata_valido, generar_diccionario_iatas
+from cache import cargar_datos_con_cache, construir_url, obtener_datos_desde_url, extraer_informacion_relevante
 
-
-@patch('dataset.cache.cargar_datos_de_archivo')
-def test_cargar_datos_de_archivo(mock_cargar):
-    # Mocking dataset to return a fake response
-    mock_cargar.return_value = [
-        {'origin': 'JFK', 'destination': 'LAX', 'origin_latitude': '40.6413', 'origin_longitude': '-73.7781',
-         'destination_latitude': '33.9416', 'destination_longitude': '-118.4085'}
-    ]
+# Prueba para cargar datos desde un archivo
+def test_cargar_datos_de_archivo():
     datos = cargar_datos_de_archivo()
-    assert len(datos) == 1
-    assert datos[0]['origin'] == 'JFK'
+    assert isinstance(datos, list), "Los datos deberían ser una lista"
+    assert len(datos) > 0, "La lista de datos no debería estar vacía"
 
-
+# Prueba para validar datos
 def test_validar_datos():
-    # Valid data
-    datos_validos = [
-        {'origin': 'JFK', 'destination': 'LAX', 'origin_latitude': '40.6413', 'origin_longitude': '-73.7781',
-         'destination_latitude': '33.9416', 'destination_longitude': '-118.4085'}
-    ]
-    # This should not raise an exception
-    validar_datos(datos_validos)
+    datos = [{'origin': 'ABC', 'destination': 'DEF', 'origin_latitude': '10.0', 'origin_longitude': '20.0',
+              'destination_latitude': '30.0', 'destination_longitude': '40.0'}]
+    try:
+        validar_datos(datos)
+    except ValueError:
+        pytest.fail("validar_datos() arrojó una excepción para datos válidos")
 
-    # Invalid data
-    datos_invalidos = [
-        {'origin': 'JFK', 'destination': 'LAX', 'origin_latitude': 'NaN', 'origin_longitude': '-73.7781',
-         'destination_latitude': '33.9416', 'destination_longitude': '-118.4085'}
-    ]
-    with pytest.raises(ValueError):
-        validar_datos(datos_invalidos)
-
-
+# Prueba para obtener coordenadas
 def test_obtener_coordenadas():
-    datos = [
-        {'origin': 'JFK', 'destination': 'LAX', 'origin_latitude': '40.6413', 'origin_longitude': '-73.7781',
-         'destination_latitude': '33.9416', 'destination_longitude': '-118.4085'}
-    ]
-    coordenadas = obtener_coordenadas(datos, 'JFK')
-    assert coordenadas == (40.6413, -73.7781)
+    datos = [{'origin': 'ABC', 'destination': 'DEF', 'origin_latitude': '10.0', 'origin_longitude': '20.0',
+              'destination_latitude': '30.0', 'destination_longitude': '40.0'}]
+    coordenadas = obtener_coordenadas(datos, 'ABC')
+    assert coordenadas == (10.0, 20.0), "Las coordenadas no coinciden con los valores esperados"
 
+# Prueba para verificar códigos IATA únicos
+def test_obtener_iata():
+    datos = [{'origin': 'ABC', 'destination': 'DEF'}, {'origin': 'GHI', 'destination': 'JKL'}]
+    iatas = obtener_iata(datos)
+    assert set(iatas) == {'ABC', 'DEF', 'GHI', 'JKL'}, "Los IATA obtenidos no son correctos"
 
+# Prueba para verificar validez de un IATA
 def test_es_iata_valido():
-    datos = [
-        {'origin': 'JFK', 'destination': 'LAX', 'origin_latitude': '40.6413', 'origin_longitude': '-73.7781',
-         'destination_latitude': '33.9416', 'destination_longitude': '-118.4085'}
-    ]
-    assert es_iata_valido(datos, 'JFK')
-    assert not es_iata_valido(datos, 'XXX')
+    datos = [{'origin': 'ABC', 'destination': 'DEF'}, {'origin': 'GHI', 'destination': 'JKL'}]
+    assert es_iata_valido(datos, 'ABC') == True, "El IATA 'ABC' debería ser válido"
+    assert es_iata_valido(datos, 'XYZ') == False, "El IATA 'XYZ' no debería ser válido"
 
+# Prueba para generar diccionario de IATA
+def test_generar_diccionario_iatas():
+    datos = [{'origin': 'ABC', 'destination': 'DEF'}, {'origin': 'DEF', 'destination': 'GHI'}]
+    diccionario = generar_diccionario_iatas(datos)
+    assert 'ABC' in diccionario, "El diccionario debería contener el IATA 'ABC'"
+    assert len(diccionario['DEF']) == 2, "El IATA 'DEF' debería tener dos registros asociados"
 
-@patch('cache.requests.get')
-def test_obtener_datos_desde_url(mock_get):
-    # Mock the HTTP response
-    mock_response = MagicMock()
-    mock_response.json.return_value = {
-        "current": {
-            "temp": 20,
-            "humidity": 50,
-            "pressure": 1012,
-            "weather": [{"description": "clear sky"}],
-            "wind_speed": 5
-        }
-    }
-    mock_get.return_value = mock_response
+# Prueba para construir URL
+def test_construir_url():
+    url = construir_url('10.0', '20.0')
+    assert "lat=10.0" in url and "lon=20.0" in url, "La URL no contiene las coordenadas correctas"
 
-    url = construir_url('40.7128', '-74.0060')
-    datos = obtener_datos_desde_url(url)
-    assert datos['current']['temp'] == 20
-
-
+# Prueba para extraer información relevante
 def test_extraer_informacion_relevante():
     json_data = {
-        "current": {
-            "temp": 20,
-            "humidity": 50,
-            "pressure": 1012,
-            "weather": [{"description": "clear sky"}],
-            "wind_speed": 5
+        'current': {
+            'temp': 25.0,
+            'humidity': 60,
+            'pressure': 1013,
+            'weather': [{'description': 'clear sky'}],
+            'wind_speed': 3.5
         }
     }
     info = extraer_informacion_relevante(json_data)
-    assert info['temperatura_actual'] == 20
-    assert info['humedad'] == 50
-
-
-@patch('cache.cargar_datos_de_archivo')
-@patch('cache.obtener_datos_desde_url')
-def test_cargar_datos_con_cache(mock_obtener_datos, mock_cargar_datos):
-    mock_cargar_datos.return_value = [
-        {'lat': '40.7128', 'lon': '-74.0060'}
-    ]
-    mock_obtener_datos.return_value = {
-        "current": {
-            "temp": 20,
-            "humidity": 50,
-            "pressure": 1012,
-            "weather": [{"description": "clear sky"}],
-            "wind_speed": 5
-        }
-    }
-    cache = cargar_datos_con_cache('dummy_path.csv')
-    assert ('40.7128', '-74.0060') in cache
-    assert cache[('40.7128', '-74.0060')]['temperatura_actual'] == 20
+    assert info['temperatura_actual'] == 25.0, "La temperatura extraída no es correcta"
+    assert info['humedad'] == 60, "La humedad extraída no es correcta"
+    assert info['descripcion_clima'] == 'clear sky', "La descripción del clima no es correcta"

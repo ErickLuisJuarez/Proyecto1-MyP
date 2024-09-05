@@ -41,20 +41,10 @@ def pantalla_personal_datos(window, pantalla_principal):
     entradaHoraLlegada = Entry(width= 20, font=("Montserrat", 15))
     entradaHoraLlegada.grid(column=1, row=6)
 
-    LatitudOrigen=Label(text="Latitud del origen", font=("Montserrat", 20, "bold"), fg="#026773")
-    LatitudOrigen.grid(column=0, row=7, padx=(0, 10), pady=15)
-    entradaLatitudOrigen = Entry(width= 20, font=("Montserrat", 15))
-    entradaLatitudOrigen.grid(column=1, row=7)
-
-    LatitudDestino=Label(text="Latitud del destino", font=("Montserrat", 20, "bold"), fg="#026773")
-    LatitudDestino.grid(column=0, row=8, padx=(0, 10), pady=15)
-    entradaLatitudDestino = Entry(width= 20, font=("Montserrat", 15))
-    entradaLatitudDestino.grid(column=1, row=8)
-
-    LongitudDestino=Label(text="Longitud del destino", font=("Montserrat", 20, "bold"), fg="#026773")
-    LongitudDestino.grid(column=0, row=9, padx=(0, 10), pady=15)
-    entradaLongitudDestino = Entry(width= 20, font=("Montserrat", 15))
-    entradaLongitudDestino.grid(column=1, row=9)
+    PedirTicket=Label(text="Ticket:", font=("Montserrat", 20, "bold"), fg="#026773")
+    PedirTicket.grid(column=0, row=7, padx=(0, 10), pady=15)
+    input = Entry(width= 20, font=("Montserrat", 15))
+    input.grid(column=1, row=7)
 
     window.BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
     siguiente = Button(window, image=window.BotonSiguiente, borderwidth=0)

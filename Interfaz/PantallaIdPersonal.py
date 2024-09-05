@@ -1,6 +1,7 @@
 from tkinter import *
+#from interfaz import pantalla_principal
 
-def pantalla_personal(window):
+def pantalla_personal(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
 
@@ -34,7 +35,7 @@ def pantalla_personal(window):
 
     BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
     window.boton_regreso_imagen = BotonRegreso  # guardamos la referencia a la imagen
-    regreso = Button(window, image=BotonRegreso, borderwidth=0)
+    regreso = Button(window, image=BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=0, row=10)
 
     def validar_id(window, idDeEntrada, mensaje_invalido):

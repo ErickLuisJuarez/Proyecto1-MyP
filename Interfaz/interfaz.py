@@ -7,7 +7,7 @@ def pantalla_principal(window):
         widget.destroy()
 
     window.title("Consulta de clima")
-    window.minsize(width=800, height=800)
+    window.minsize(width=1200, height=500)
     window.config(padx=20, pady=20)
 
     

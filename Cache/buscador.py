@@ -65,12 +65,11 @@ def obtener_datos_climaticos(registros: dict, cache_clima: dict, iata_origen: st
                     hora_actual = i
                     break
 
-            # Información del clima de origen
             clima_origen = cache_clima['registros'][iata_origen][hora_actual]
             lista_datos.extend([
                 iata_origen,
-                registros[iata_origen][0],  # Latitud origen
-                registros[iata_origen][1],  # Longitud origen
+                registros[iata_origen][0],
+                registros[iata_origen][1],
                 clima_origen['descripcion_clima'],
                 f"{clima_origen['temperatura_actual']} °C",
                 clima_origen['humedad'],
@@ -79,12 +78,11 @@ def obtener_datos_climaticos(registros: dict, cache_clima: dict, iata_origen: st
             ])
 
             if hora_actual < 22:
-                # Información del clima de destino para las siguientes 2 horas
                 clima_destino = cache_clima['registros'][iata_destino][hora_actual + 2]
                 lista_datos.extend([
                     iata_destino,
-                    registros[iata_destino][0],  # Latitud destino
-                    registros[iata_destino][1],  # Longitud destino
+                    registros[iata_destino][0],
+                    registros[iata_destino][1],
                     clima_destino['descripcion_clima'],
                     f"{clima_destino['temperatura_actual']} °C",
                     clima_destino['humedad'],
@@ -92,12 +90,11 @@ def obtener_datos_climaticos(registros: dict, cache_clima: dict, iata_origen: st
                     clima_destino['velocidad_viento']
                 ])
             else:
-                # Información del clima de destino para la última hora
                 clima_destino = cache_clima['registros'][iata_destino][23]
                 lista_datos.extend([
                     iata_destino,
-                    registros[iata_destino][0],  # Latitud destino
-                    registros[iata_destino][1],  # Longitud destino
+                    registros[iata_destino][0],
+                    registros[iata_destino][1],
                     clima_destino['descripcion_clima'],
                     f"{clima_destino['temperatura_actual']} °C",
                     clima_destino['humedad'],
@@ -195,17 +192,17 @@ def buscar_vuelos(origen, destino, diccionario_iatas):
 if __name__ == "__main__":
     diccionario_iatas = cargar_datos_y_generar_busqueda()
     if diccionario_iatas:
-        origen_ciudad = input("Introduce el nombre de la ciudad de origen: ").strip()
-        destino_ciudad = input("Introduce el nombre de la ciudad de destino: ").strip()
+        origen_ciudad = input("Introduce el nombre de la ciuda: ").strip()
 
-        if origen_ciudad and destino_ciudad:
-            registros = buscar_vuelos_por_ciudad(origen_ciudad, destino_ciudad, diccionario_iatas)
+        if origen_ciudad:
+            registros = buscar_vuelos_por_ciudad(origen_ciudad, diccionario_iatas)
 
             if registros:
                 iata_origen = registros[0].get('origin', '')
                 iata_destino = registros[0].get('destination', '')
 
-                cache_clima = cache.cache
+                cache_clima = cache.cache if 'registros' in cache.cache else {'registros': {}}
+
                 datos_climaticos = obtener_datos_climaticos(
                     registros=generar_diccionario_iatas(cargar_datos_de_archivo()),
                     cache_clima=cache_clima,

@@ -104,6 +104,8 @@ def cargar_datos_con_cache(archivo):
     """
     datos = cargar_datos_de_archivo(archivo)
 
+    cache_local = {}
+
     for fila in datos:
         lat = fila.get('lat')
         lon = fila.get('lon')
@@ -114,20 +116,19 @@ def cargar_datos_con_cache(archivo):
         
         cache_key = (lat, lon)
 
-        if cache_key not in cache:
+        if cache_key not in cache_local:
             url_completa = construir_url(lat, lon)
 
             try:
                 json_salida = obtener_datos_desde_url(url_completa)
-                cache[cache_key] = extraer_informacion_relevante(json_salida)
+                cache_local[cache_key] = extraer_informacion_relevante(json_salida)
             except Exception as e:
                 print(f"Error al obtener datos para las coordenadas {lat}, {lon}: {e}")
         else:
             print(f"Datos para las coordenadas {lat}, {lon} encontrados en caché.")
 
     print("Datos procesados y almacenados en caché con éxito.")
-    return cache
-
+    return {'registros': cache_local}
 
 if __name__ == "__main__":
     cache_resultado = cargar_datos_con_cache(DATA_SET)

@@ -5,6 +5,7 @@ Creado por Erick Luis Juárez
 """
 
 import cache
+import csv
 
 def cargar_datos_de_archivo():
     """
@@ -115,3 +116,50 @@ def generar_diccionario_iatas(datos):
         diccionario_iatas[iata_origen].append(fila)
         diccionario_iatas[iata_destino].append(fila)
     return diccionario_iatas
+
+def crear_diccionario_ciudades():
+    """
+    Crea un diccionario que asocia códigos IATA con nombres de ciudades.
+
+    La función primero lee un archivo CSV que contiene información de vuelos 
+    para extraer los códigos IATA (campo 1). Luego, empareja estos códigos IATA 
+    con una lista predefinida de tuplas que relacionan códigos IATA con los 
+    nombres de las ciudades correspondientes.
+
+    Returns:
+        dict: Un diccionario donde las claves son códigos IATA (str) y los 
+              valores son los nombres de las ciudades (str) asociadas a esos códigos.
+    """
+    iatas = []
+    
+    with open(cache.DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
+        lector = csv.reader(archivo)
+        next(lector)
+
+        for fila in lector:
+            iata = fila[1] 
+            if iata not in iatas: 
+                iatas.append(iata) 
+
+    iatas_y_ciudades = [
+        ("MTY", "Monterrey"), ("TLC", "Toluca"), ("MEX", "Ciudad de México"), ("TAM", "Tamaulipas"), 
+        ("GDL", "Guadalajara"), ("CJS", "Ciudad Juárez"), ("CUN", "Cancún"), ("TIJ", "Tijuana"), 
+        ("HMO", "Hermosillo"), ("CME", "Ciudad del Carmen"), ("MID", "Mérida"), ("CTM", "Chetumal"), 
+        ("VER", "Veracruz"), ("OAX", "Oaxaca"), ("HUX", "Huatulco"), ("ZIH", "Zihuatanejo"), 
+        ("PVR", "Puerto Vallarta"), ("LIM", "Lima"), ("HAV", "La Habana"), ("BOG", "Bogotá"), 
+        ("MIA", "Miami"), ("LAX", "Los Angeles"), ("JFK", "Nueva York"), ("TRC", "Torreón"), 
+        ("PXM", "Puerto Escondido"), ("ACA", "Acapulco"), ("MZT", "Mazatlan"), ("GUA", "Guatemala"), 
+        ("VSA", "Villahermosa"), ("BZE", "Ciudad de Belice"), ("DFW", "Dallas"), ("ORD", "Chicago"), 
+        ("PHX", "Phoenix"), ("PHL", "Philadelphia"), ("CLT", "Charlotte"), ("YYZ", "Toronto"), 
+        ("IAH", "Houston"), ("YVR", "Vancouver"), ("CDG", "Charles de Gaulle"), ("ZCL", "Zacatecas"), 
+        ("AMS", "Ámsterdam"), ("ATL", "Atlanta"), ("CEN", "Ciudad Obregón"), ("MAD", "Madrid"), 
+        ("SCL", "Santiago de Chile")
+    ]
+
+    diccionario_ciudades = {}
+    for iata in iatas:
+        for iata_ciudad in iatas_y_ciudades:
+            if iata == iata_ciudad[0]: 
+                diccionario_ciudades[iata] = iata_ciudad[1]
+    
+    return diccionario_ciudades

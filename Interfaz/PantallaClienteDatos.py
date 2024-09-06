@@ -1,4 +1,5 @@
 from tkinter import *
+from PantallaRecomendacionesCliente import pantalla_recomendaciones_cliente
 def pantalla_cliente(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
@@ -44,7 +45,8 @@ def pantalla_cliente(window, pantalla_principal):
     input.grid(column=1, row=7)
 
     BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
-    siguiente = Button(image=BotonSiguiente, borderwidth=0)
+    siguiente = Button(image=BotonSiguiente, borderwidth=0, command=lambda:pantalla_recomendaciones_cliente
+                       (window, pantalla_cliente, pantalla_principal))
     siguiente.grid(column=1, row=10)
 
     BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)

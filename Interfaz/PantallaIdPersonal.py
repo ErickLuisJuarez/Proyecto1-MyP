@@ -7,6 +7,8 @@ def pantalla_personal(window, pantalla_principal):
 
     window.title("Personal")
 
+    window.geometry("1200x500")
+
     imagen = Canvas(width=200, height=200)
     logo_img = PhotoImage(file="Recursos/LogoAeropuerto.png")
     imagen.create_image(100,100, image=logo_img)

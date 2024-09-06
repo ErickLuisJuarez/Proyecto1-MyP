@@ -8,7 +8,7 @@ def pantalla_recomendaciones_cliente(window, pantalla_personal_datos, pantalla_p
     window.title("Recomendaciones")
 
     
-    window.geometry("800x600")
+    window.geometry("1200x500")
 
     
     canvas = Canvas(window)

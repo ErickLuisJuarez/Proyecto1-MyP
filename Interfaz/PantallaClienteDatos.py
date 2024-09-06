@@ -6,6 +6,8 @@ def pantalla_cliente(window, pantalla_principal):
         widget.destroy()
     
     window.title("Cliente")
+
+    window.geometry("1200x500")
     window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 

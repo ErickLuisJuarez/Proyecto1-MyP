@@ -6,7 +6,7 @@ def pantalla_personal_datos(window, pantalla_principal):
         widget.destroy()
 
     window.title("Personal")
-    window.minsize(width=800, height=800)
+    window.minsize(width=1200, height=500)
     window.config(padx=20, pady=20)
 
     lienzo = Canvas(window, width=200, height=200)

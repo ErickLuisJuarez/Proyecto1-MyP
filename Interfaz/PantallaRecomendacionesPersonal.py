@@ -6,6 +6,8 @@ def pantalla_recomendaciones_personal(window, pantalla_personal_datos, pantalla_
 
     window.title("Recomendaciones")
 
+    window.geometry("1200x500")
+
     canvas = Canvas(window)
     deslizador = Scrollbar(window, orient="vertical", command=canvas.yview)
     frame_desliz = Frame(canvas)

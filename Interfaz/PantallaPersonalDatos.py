@@ -6,12 +6,13 @@ def pantalla_personal_datos(window, pantalla_principal):
         widget.destroy()
 
     window.title("Personal")
+    window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 
-    imagen = Canvas(width=200, height=200)
-    logo_img = PhotoImage(file="Recursos/LogoAeropuerto.png")
-    imagen.create_image(100,100, image=logo_img)
-    imagen.grid(column=0, row=0)
+    lienzo = Canvas(width=200, height=200)
+    logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
+    lienzo.create_image(100, 100, image=logoaeropuerto)
+    lienzo.grid(column=0, row=0, padx=(0, 10))
 
     tituloPrincipal=Label(text="Personal", font=("Montserrat", 60, "bold"), fg="#011640")
     tituloPrincipal.grid(column=1, row=0, pady=20, sticky="w")
@@ -49,9 +50,10 @@ def pantalla_personal_datos(window, pantalla_principal):
     siguiente.grid(column=1, row=10)
 
     ## esperar
-
     ##########
 
     window.BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
     regreso = Button(window, image=window.BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=0, row=10)
+
+    window.mainloop()

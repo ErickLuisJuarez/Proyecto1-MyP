@@ -1,7 +1,7 @@
 """
 Código que gestiona y procesa los datos del archivo dataset1.cvs
 
-Creado por Erick Luis Juárez
+Creado por Erick Luis Juárez y Diego Eduardo Peña Villegas
 """
 
 import cache
@@ -135,15 +135,13 @@ def crear_diccionario_ciudades():
     """
     diccionario_ciudades = {}
 
-    # Abre el archivo usando la ruta especificada por DATA_SET
     with open(DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
         lector = csv.reader(archivo)
-        next(lector)  # Salta la cabecera si existe
+        next(lector)  
 
-        # Llena el diccionario con los códigos IATA y las ciudades
         for fila in lector:
-            iata = fila[0]  # Suponemos que el IATA está en la primera columna
-            ciudad = fila[1]  # Suponemos que la ciudad está en la segunda columna
+            iata = fila[0]  
+            ciudad = fila[1]  
             diccionario_ciudades[iata] = ciudad
 
     return diccionario_ciudades

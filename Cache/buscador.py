@@ -46,7 +46,7 @@ def obtener_datos_climaticos(iata_usuario, datos):
     """
     iata_corregido = corregir_nombre_ciudad(iata_usuario)
     if not iata_corregido:
-        return None, None
+        return "No se encontró la IATA", None
     
     coordenadas = dataset.obtener_coordenadas(datos, iata_corregido)
     if coordenadas:
@@ -57,13 +57,14 @@ def obtener_datos_climaticos(iata_usuario, datos):
             json_data = cache.obtener_datos_desde_url(url)
             datos_climaticos = cache.extraer_informacion_relevante(json_data)
             return iata_corregido, datos_climaticos
-    return None, None
+    return "No se encontraron datos climáticos", None
 
 
 if __name__ == "__main__":
     datos = dataset.cargar_datos_de_archivo()
-    nombre_ciudad_usuario = input("Introduce el nombre de la ciudad: ")
+    nombre_ciudad_usuario = input("Introduce IATA o nombre de la ciudad: ")
     iata_corregido, datos_climaticos = obtener_datos_climaticos(nombre_ciudad_usuario, datos)
     
     print(f"Código IATA: {iata_corregido}")
+    print(f"Nombre de la ciudad: {nombre_ciudad_usuario}")
     print(f"Datos climáticos: {datos_climaticos}")

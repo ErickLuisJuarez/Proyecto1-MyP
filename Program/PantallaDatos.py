@@ -1,12 +1,12 @@
 from tkinter import *
 from PantallaClima import pantalla_clima
+import dataset  # Asegúrate de importar tu módulo dataset
 
 def pantalla_Datos(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
     
     window.title("Datos")
-
     window.geometry("1200x600")
     window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
@@ -37,7 +37,7 @@ def pantalla_Datos(window, pantalla_principal):
 
     BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
     window.boton_siguiente_imagen = BotonSiguiente
-    siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda: validar_ticket(window, Ticket_entrada, mensaje_invalido))
+    siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda: validar_ticket(window, entradaCiudad.get(), Ticket_entrada.get(), mensaje_invalido))
     siguiente.grid(column=1, row=7, pady=50)
 
     BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
@@ -45,14 +45,14 @@ def pantalla_Datos(window, pantalla_principal):
     regreso = Button(window, image=BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=0, row=7, pady=50)
 
-    def validar_ticket(window, Ticket_entrada, mensaje_invalido):
-        ticket = Ticket_entrada.get()
+    def validar_ticket(window, ciudad, ticket, mensaje_invalido):
+        print(f"Ciudad ingresada: {ciudad}")
         print(f"Ticket ingresado: {ticket}") 
 
         if len(ticket) == 6:  # El ticket debe tener exactamente 6 caracteres
             mensaje_invalido.config(text="")
             print("Ticket válido. Avanzando a la siguiente pantalla.") 
-            pantalla_clima(window, pantalla_Datos, pantalla_principal)
+            pantalla_clima(window, pantalla_Datos, pantalla_principal, ciudad)
         else:
             mensaje_invalido.config(text="Ticket incorrecto")
             print("Ticket inválido. Por favor, ingrese un ticket de 6 caracteres.")  

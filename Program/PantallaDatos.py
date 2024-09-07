@@ -7,7 +7,7 @@ def pantalla_Datos(window, pantalla_principal):
         widget.destroy()
     
     window.title("Datos")
-    window.geometry("1200x600")
+    window.geometry("900x600")
     window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 
@@ -16,7 +16,7 @@ def pantalla_Datos(window, pantalla_principal):
     lienzo.create_image(100, 100, image=logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
 
-    titulo1 = Label(window, text="Cliente", font=("Montserrat", 60, "bold"), fg="#011640")
+    titulo1 = Label(window, text="Datos", font=("Montserrat", 60, "bold"), fg="#011640")
     titulo1.grid(column=1, row=0, pady=20, sticky="w")
 
     titulo2 = Label(window, text="Rellene los siguientes datos", font=("Montserrat", 25, "bold"), fg="#3CA6A6")

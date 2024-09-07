@@ -1,12 +1,14 @@
 from tkinter import *
-from PantallaRecomendacionesPersonal import pantalla_recomendaciones_personal
+from PantallaClima import pantalla_clima
 
-def pantalla_personal_datos(window, pantalla_principal):
+def pantalla_Datos(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
+    
+    window.title("Datos")
 
-    window.title("Personal")
-    window.minsize(width=1200, height=500)
+    window.geometry("1200x600")
+    window.minsize(width=800, height=800)
     window.config(padx=20, pady=20)
 
     lienzo = Canvas(window, width=200, height=200)
@@ -14,19 +16,19 @@ def pantalla_personal_datos(window, pantalla_principal):
     lienzo.create_image(100, 100, image=logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
 
-    tituloPrincipal = Label(window, text="Personal", font=("Montserrat", 60, "bold"), fg="#011640")
-    tituloPrincipal.grid(column=1, row=0, pady=20, sticky="w")
+    titulo1 = Label(window, text="Cliente", font=("Montserrat", 60, "bold"), fg="#011640")
+    titulo1.grid(column=1, row=0, pady=20, sticky="w")
 
-    tituloSecundario = Label(window, text="Rellene los siguientes datos", font=("Montserrat", 25, "bold"), fg="#3CA6A6")
-    tituloSecundario.grid(column=0, row=1, columnspan=3, padx=150, sticky="n", pady=15)
-    
+    titulo2 = Label(window, text="Rellene los siguientes datos", font=("Montserrat", 25, "bold"), fg="#3CA6A6")
+    titulo2.grid(column=0, row=1, columnspan=3, padx=150, pady=50, sticky="n")
+
     ciudad = Label(window, text="Ciudad:", font=("Montserrat", 20, "bold"), fg="#026773")
     ciudad.grid(column=0, row=3, padx=(0, 10), pady=15)
     entradaCiudad = Entry(window, width=20, font=("Montserrat", 15))
     entradaCiudad.grid(column=1, row=3)
 
-    PedirTicket = Label(window, text="Ticket:", font=("Montserrat", 20, "bold"), fg="#026773")
-    PedirTicket.grid(column=0, row=5, padx=(0, 10), pady=15)
+    Pedir_ticket = Label(window, text="Ticket:", font=("Montserrat", 20, "bold"), fg="#026773")
+    Pedir_ticket.grid(column=0, row=5, padx=(0, 10), pady=15)
     Ticket_entrada = Entry(window, width=20, font=("Montserrat", 15))
     Ticket_entrada.grid(column=1, row=5)
 
@@ -45,14 +47,14 @@ def pantalla_personal_datos(window, pantalla_principal):
 
     def validar_ticket(window, Ticket_entrada, mensaje_invalido):
         ticket = Ticket_entrada.get()
-        print(f"Ticket ingresado: {ticket}")
+        print(f"Ticket ingresado: {ticket}") 
 
         if len(ticket) == 6:  # El ticket debe tener exactamente 6 caracteres
             mensaje_invalido.config(text="")
-            print("Ticket válido. Avanzando a la siguiente pantalla.")
-            pantalla_recomendaciones_personal(window, pantalla_personal_datos, pantalla_principal)
+            print("Ticket válido. Avanzando a la siguiente pantalla.") 
+            pantalla_clima(window, pantalla_Datos, pantalla_principal)
         else:
             mensaje_invalido.config(text="Ticket incorrecto")
-            print("Ticket inválido. Por favor, ingrese un ticket de 6 caracteres.")
+            print("Ticket inválido. Por favor, ingrese un ticket de 6 caracteres.")  
 
     window.mainloop()

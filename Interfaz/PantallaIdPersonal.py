@@ -1,13 +1,13 @@
 from tkinter import *
-from PantallaPersonalDatos import pantalla_personal_datos
+from PantallaDatos import pantalla_Datos
 
-def pantalla_personal(window, pantalla_principal):
+def pantalla_Idpersonal(window, pantalla_principal):
     for widget in window.winfo_children():
         widget.destroy()
 
-    window.title("Personal")
+    window.title("ID_Personal")
 
-    window.geometry("1200x500")
+    window.geometry("1200x600")
 
     imagen = Canvas(width=200, height=200)
     logo_img = PhotoImage(file="Recursos/LogoAeropuerto.png")
@@ -45,6 +45,6 @@ def pantalla_personal(window, pantalla_principal):
 
         if len(pilot_id) == 10:  # el ID del personal siempre es de 10 caracteres
             mensaje_invalido.config(text="")
-            pantalla_personal_datos(window, pantalla_principal)
+            pantalla_Datos(window, pantalla_principal)
         else:
             mensaje_invalido.config(text="ID incorrecto")

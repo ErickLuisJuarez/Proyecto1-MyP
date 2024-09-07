@@ -1,7 +1,6 @@
 from tkinter import *
-import buscador  # Asegúrate de importar correctamente tu módulo que contiene la función obtener_datos_climaticos
-import dataset  # Este módulo debería contener la función cargar_datos_de_archivo
-
+import buscador 
+import dataset  
 def pantalla_clima(window, pantalla_personal_datos, pantalla_principal, ciudad_origen):
     for widget in window.winfo_children():
         widget.destroy()
@@ -9,10 +8,8 @@ def pantalla_clima(window, pantalla_personal_datos, pantalla_principal, ciudad_o
     window.title("Clima")
     window.geometry("900x600")
 
-    # Cargar datos del archivo CSV
     datos = dataset.cargar_datos_de_archivo()
 
-    # Obtener los datos climáticos
     iata_corregido, datos_climaticos = buscador.obtener_datos_climaticos(ciudad_origen, datos)
 
     if datos_climaticos is None:

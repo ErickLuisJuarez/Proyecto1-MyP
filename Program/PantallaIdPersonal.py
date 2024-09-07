@@ -31,19 +31,19 @@ def pantalla_Idpersonal(window, pantalla_principal):
     mensaje_invalido.grid(column=0, row=4, columnspan=2)
 
     BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png").subsample(2, 2)
-    window.boton_siguiente_imagen = BotonSiguiente  # guardamos la referencia a la imagen
+    window.boton_siguiente_imagen = BotonSiguiente  
     siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda:validar_id(window, idDeEntrada, mensaje_invalido))
     siguiente.grid(column=1, row=10)
 
     BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
-    window.boton_regreso_imagen = BotonRegreso  # guardamos la referencia a la imagen
+    window.boton_regreso_imagen = BotonRegreso 
     regreso = Button(window, image=BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=0, row=10)
 
     def validar_id(window, idDeEntrada, mensaje_invalido):
         pilot_id = idDeEntrada.get()
 
-        if len(pilot_id) == 10:  # el ID del personal siempre es de 10 caracteres
+        if len(pilot_id) == 10:  
             mensaje_invalido.config(text="")
             pantalla_Datos(window, pantalla_principal)
         else:

@@ -1,6 +1,6 @@
 from tkinter import *
 from PantallaClima import pantalla_clima
-import dataset  # Asegúrate de importar tu módulo dataset
+import dataset
 
 def pantalla_Datos(window, pantalla_principal):
     for widget in window.winfo_children():
@@ -49,7 +49,7 @@ def pantalla_Datos(window, pantalla_principal):
         print(f"Ciudad ingresada: {ciudad}")
         print(f"Ticket ingresado: {ticket}") 
 
-        if len(ticket) == 6:  # El ticket debe tener exactamente 6 caracteres
+        if len(ticket) == 6:
             mensaje_invalido.config(text="")
             print("Ticket válido. Avanzando a la siguiente pantalla.") 
             pantalla_clima(window, pantalla_Datos, pantalla_principal, ciudad)

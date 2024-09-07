@@ -11,7 +11,6 @@ import os
 
 cache = {}
 
-BASE_URL = "https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={api_key}&units=metric"
 API_KEY = "a7fe8465c127fbb019e08a08ab29d0bd"
 DIRECTORIO_RECURSOS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Resources'))
 DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1.csv')
@@ -41,56 +40,60 @@ def cargar_datos_de_archivo(archivo):
         raise
 
 
-def construir_url(lat, lon, part='minutely,hourly,daily'):
+def construir_url(ciudad):
     """
-    Construye la URL completa para la solicitud a la API de OpenWeatherMap.
-
-    Argumentos:
-        lat (str): Latitud.
-        lon (str): Longitud.
-        part (str): Partes de la respuesta a excluir (opcional).
-
-    Returns:
-        str: URL completa para la solicitud.
+    Construye la URL para obtener datos climáticos desde la API.
     """
-    return BASE_URL.format(lat=lat, lon=lon, part=part, api_key=API_KEY)
+    return f'http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric'
 
+    
 def obtener_datos_desde_url(url):
     """
-    Realiza una solicitud HTTP GET a la URL especificada y devuelve la respuesta en formato JSON.
+    Obtiene datos desde una URL.
 
-    Argumentos:
-        url (str): URL para realizar la solicitud.
+    Args:
+        url (str): URL desde la que se obtienen los datos.
 
     Returns:
-        dict: Respuesta de la solicitud en formato JSON.
+        dict: Datos en formato JSON obtenidos de la URL.
     """
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error al realizar la solicitud a {url}: {e}")
-        raise
+        respuesta = requests.get(url)
+        respuesta.raise_for_status()
+        return respuesta.json()
+    except requests.HTTPError as http_err:
+        return {'error': f'Error HTTP: {http_err}'}
+    except Exception as err:
+        return {'error': f'Error: {err}'}
 
 def extraer_informacion_relevante(json_data):
     """
-    Extrae y muestra información relevante como la temperatura, humedad, y otros datos de la respuesta JSON
+    Extrae información relevante del JSON de respuesta de la API de OpenWeatherMap.
 
-    Argumentos:
+    Args:
         json_data (dict): Respuesta JSON de la API de OpenWeatherMap.
 
     Returns:
-        dict: Diccionario con la información extraída.
+        dict: Un diccionario con la temperatura, presión, humedad, velocidad del viento,
+              y probabilidad de lluvia.
     """
-    información = {
-        "temperatura_actual": json_data['current']['temp'],
-        "humedad": json_data['current']['humidity'],
-        "presion": json_data['current']['pressure'],
-        "descripcion_clima": json_data['current']['weather'][0]['description'],
-        "velocidad_viento": json_data['current']['wind_speed'],
-    }
-    return información
+    try:
+        temperatura = json_data['main']['temp']
+        presion = json_data['main']['pressure']
+        humedad = json_data['main']['humidity']
+        velocidad_viento = json_data['wind']['speed']
+        probabilidad_lluvia = json_data.get('rain', {}).get('1h', 0)
+
+        return {
+            'temperatura': temperatura,
+            'presion': presion,
+            'humedad': humedad,
+            'velocidad_viento': velocidad_viento,
+            'probabilidad_lluvia': probabilidad_lluvia
+        }
+    except KeyError as e:
+        print(f"Error al extraer datos: {e}")
+        return {'error': 'Datos incompletos o respuesta de API no válida'}
 
 def cargar_datos_con_cache(archivo):
     """

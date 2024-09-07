@@ -44,20 +44,21 @@ def validar_datos(datos):
 
 def obtener_coordenadas(datos, iata):
     """
-    Obtiene las coordenadas asociadas a un IATA dado.
+    Obtiene las coordenadas asociadas a un código IATA.
 
     Args:
-        datos (list): Lista de diccionarios representando las filas del archivo CSV.
-        iata (str): Código IATA.
+        datos (list): Lista de diccionarios con datos de vuelos.
+        iata (str): Código IATA para buscar.
 
     Returns:
-        tuple: Tupla de coordenadas (latitud, longitud) si se encuentra el IATA, None en caso contrario.
+        tuple: Latitud y longitud si se encuentra el IATA, None si no.
     """
     for fila in datos:
         if fila['origin'] == iata:
-            return (float(fila['origin_latitude']), float(fila['origin_longitude']))
+            return fila['origin_latitude'], fila['origin_longitude']
         elif fila['destination'] == iata:
-            return (float(fila['destination_latitude']), float(fila['destination_longitude']))
+            return fila['destination_latitude'], fila['destination_longitude']
+
     return None
 
 def obtener_iata(datos):
@@ -163,3 +164,16 @@ def crear_diccionario_ciudades():
                 diccionario_ciudades[iata] = iata_ciudad[1]
     
     return diccionario_ciudades
+
+def obtener_nombre_ciudad_por_iata(iata):
+    """
+    Obtiene el nombre de la ciudad a partir del código IATA.
+
+    Args:
+        iata (str): Código IATA de la ciudad.
+
+    Returns:
+        str: Nombre de la ciudad correspondiente al código IATA.
+    """
+    diccionario_ciudades = crear_diccionario_ciudades()
+    return diccionario_ciudades.get(iata, None)

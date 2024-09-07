@@ -141,21 +141,7 @@ def crear_diccionario_ciudades():
             iata = fila[1] 
             if iata not in iatas: 
                 iatas.append(iata) 
-
-    iatas_y_ciudades = [
-        ("MTY", "Monterrey"), ("TLC", "Toluca"), ("MEX", "Ciudad de México"), ("TAM", "Tamaulipas"), 
-        ("GDL", "Guadalajara"), ("CJS", "Ciudad Juárez"), ("CUN", "Cancún"), ("TIJ", "Tijuana"), 
-        ("HMO", "Hermosillo"), ("CME", "Ciudad del Carmen"), ("MID", "Mérida"), ("CTM", "Chetumal"), 
-        ("VER", "Veracruz"), ("OAX", "Oaxaca"), ("HUX", "Huatulco"), ("ZIH", "Zihuatanejo"), 
-        ("PVR", "Puerto Vallarta"), ("LIM", "Lima"), ("HAV", "La Habana"), ("BOG", "Bogotá"), 
-        ("MIA", "Miami"), ("LAX", "Los Angeles"), ("JFK", "Nueva York"), ("TRC", "Torreón"), 
-        ("PXM", "Puerto Escondido"), ("ACA", "Acapulco"), ("MZT", "Mazatlan"), ("GUA", "Guatemala"), 
-        ("VSA", "Villahermosa"), ("BZE", "Ciudad de Belice"), ("DFW", "Dallas"), ("ORD", "Chicago"), 
-        ("PHX", "Phoenix"), ("PHL", "Philadelphia"), ("CLT", "Charlotte"), ("YYZ", "Toronto"), 
-        ("IAH", "Houston"), ("YVR", "Vancouver"), ("CDG", "Charles de Gaulle"), ("ZCL", "Zacatecas"), 
-        ("AMS", "Ámsterdam"), ("ATL", "Atlanta"), ("CEN", "Ciudad Obregón"), ("MAD", "Madrid"), 
-        ("SCL", "Santiago de Chile")
-    ]
+    #aqui estaba la lista de iatas y ciudades
 
     diccionario_ciudades = {}
     for iata in iatas:

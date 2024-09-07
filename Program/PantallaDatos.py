@@ -3,6 +3,15 @@ from PantallaClima import pantalla_clima
 import dataset
 
 def pantalla_Datos(window, pantalla_principal):
+    """
+    Muestra la pantalla para ingresar datos del usuario (ciudad y ticket).
+    Al validar el ticket, se navega a la pantalla de clima.
+
+    Args:
+        window (Tk): La ventana principal de la aplicación Tkinter.
+        pantalla_principal (function): Función para mostrar la pantalla principal.
+
+    """
     for widget in window.winfo_children():
         widget.destroy()
     
@@ -46,6 +55,15 @@ def pantalla_Datos(window, pantalla_principal):
     regreso.grid(column=0, row=7, pady=50)
 
     def validar_ticket(window, ciudad, ticket, mensaje_invalido):
+        """
+        Valida el ticket ingresado y navega a la pantalla de clima si el ticket es válido.
+
+        Args:
+            window (Tk): La ventana principal de la aplicación Tkinter.
+            ciudad (str): Ciudad ingresada por el usuario.
+            ticket (str): Ticket ingresado por el usuario.
+            mensaje_invalido (Label): Etiqueta para mostrar mensajes de error.
+        """
         print(f"Ciudad ingresada: {ciudad}")
         print(f"Ticket ingresado: {ticket}") 
 

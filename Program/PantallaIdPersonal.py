@@ -2,6 +2,15 @@ from tkinter import *
 from PantallaDatos import pantalla_Datos
 
 def pantalla_Idpersonal(window, pantalla_principal):
+    """
+    Muestra la pantalla para ingresar la identificación personal del usuario.
+    Valida el ID ingresado y navega a la pantalla de datos si el ID es válido.
+
+    Args:
+        window (Tk): La ventana principal de la aplicación Tkinter.
+        pantalla_principal (function): Función para mostrar la pantalla principal.
+
+    """
     for widget in window.winfo_children():
         widget.destroy()
 
@@ -41,6 +50,14 @@ def pantalla_Idpersonal(window, pantalla_principal):
     regreso.grid(column=0, row=10)
 
     def validar_id(window, idDeEntrada, mensaje_invalido):
+        """
+        Valida el ID ingresado y navega a la pantalla de datos si el ID es válido.
+
+        Args:
+            window (Tk): La ventana principal de la aplicación Tkinter.
+            idDeEntrada (Entry): Campo de entrada para el ID del personal.
+            mensaje_invalido (Label): Etiqueta para mostrar mensajes de error.
+        """
         pilot_id = idDeEntrada.get()
 
         if len(pilot_id) == 10:  

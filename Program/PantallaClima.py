@@ -2,6 +2,16 @@ from tkinter import *
 import buscador 
 import dataset  
 def pantalla_clima(window, pantalla_personal_datos, pantalla_principal, ciudad_origen):
+    """
+    Muestra la pantalla de clima con los datos climáticos de la ciudad especificada por el usuario.
+
+    Args:
+        window (Tk): La ventana principal de la aplicación Tkinter.
+        pantalla_personal_datos (function): Función para mostrar la pantalla de datos personales.
+        pantalla_principal (function): Función para mostrar la pantalla principal.
+        ciudad_origen (str): El nombre de la ciudad para la cual se mostrarán los datos climáticos.
+
+    """
     for widget in window.winfo_children():
         widget.destroy()
 

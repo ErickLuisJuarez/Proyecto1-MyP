@@ -6,6 +6,7 @@ Creado por Erick Luis Juárez
 """
 import dataset
 import cache
+from unicodedata import normalize
 
 def corregir_nombre_ciudad(nombre_ciudad_usuario):
     """
@@ -22,6 +23,7 @@ def corregir_nombre_ciudad(nombre_ciudad_usuario):
     iata_corregido = None
     
     nombre_ciudad_usuario = nombre_ciudad_usuario.lower()
+    nombre_ciudad_usuario = normalize('NFKD', nombre_ciudad_usuario).encode('ASCII', 'ignore').decode('ASCII')
     
     for iata, ciudad in diccionario_ciudades.items():
         if nombre_ciudad_usuario in ciudad.lower():

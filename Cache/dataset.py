@@ -6,6 +6,10 @@ Creado por Erick Luis Juárez
 
 import cache
 import csv
+import os
+
+DIRECTORIO_RECURSOS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Resources'))
+DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'IATA-Ciudad.csv')
 
 def cargar_datos_de_archivo():
     """
@@ -122,33 +126,26 @@ def crear_diccionario_ciudades():
     """
     Crea un diccionario que asocia códigos IATA con nombres de ciudades.
 
-    La función primero lee un archivo CSV que contiene información de vuelos 
-    para extraer los códigos IATA (campo 1). Luego, empareja estos códigos IATA 
-    con una lista predefinida de tuplas que relacionan códigos IATA con los 
-    nombres de las ciudades correspondientes.
+    La función lee un archivo CSV ubicado en la ruta especificada por DATA_SET 
+    que contiene los códigos IATA y los nombres de las ciudades correspondientes.
 
     Returns:
         dict: Un diccionario donde las claves son códigos IATA (str) y los 
               valores son los nombres de las ciudades (str) asociadas a esos códigos.
     """
-    iatas = []
-    
-    with open(cache.DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
-        lector = csv.reader(archivo)
-        next(lector)
-
-        for fila in lector:
-            iata = fila[1] 
-            if iata not in iatas: 
-                iatas.append(iata) 
-    #aqui estaba la lista de iatas y ciudades
-
     diccionario_ciudades = {}
-    for iata in iatas:
-        for iata_ciudad in iatas_y_ciudades:
-            if iata == iata_ciudad[0]: 
-                diccionario_ciudades[iata] = iata_ciudad[1]
-    
+
+    # Abre el archivo usando la ruta especificada por DATA_SET
+    with open(DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
+        lector = csv.reader(archivo)
+        next(lector)  # Salta la cabecera si existe
+
+        # Llena el diccionario con los códigos IATA y las ciudades
+        for fila in lector:
+            iata = fila[0]  # Suponemos que el IATA está en la primera columna
+            ciudad = fila[1]  # Suponemos que la ciudad está en la segunda columna
+            diccionario_ciudades[iata] = ciudad
+
     return diccionario_ciudades
 
 def obtener_nombre_ciudad_por_iata(iata):

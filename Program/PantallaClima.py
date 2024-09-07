@@ -37,7 +37,7 @@ def pantalla_clima(window, pantalla_personal_datos, pantalla_principal):
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
 
-    ClimaOrigen=Label(frame_desliz, text="Clima del lugar \n de origen", font=("Montserrat",45, "bold"), fg="#011640")
+    ClimaOrigen=Label(frame_desliz, text="Clima", font=("Montserrat",45, "bold"), fg="#011640")
     ClimaOrigen.grid(column=1, row=0, padx=(20, 10), pady=20, sticky="ew")
 
     TemperaturaOrigen=Label(frame_desliz, text="Temperatura:", font=("Montserrat", 30, "bold"), fg="#011640")

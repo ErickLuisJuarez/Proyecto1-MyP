@@ -3,6 +3,18 @@ from PantallaIdPersonal import pantalla_Idpersonal
 from PantallaDatos import pantalla_Datos
 
 def pantalla_principal(window):
+    """
+    Esta es la pantalla principal de inicio al ejecutar le programa de consulta de clima.
+
+    Parámetros:
+    window (Tk): La ventana principal de Tkinter en la que se colocan todos los widgets.
+
+    Descripción:
+    - Primero limpia todos los widgets existentes en la ventana.
+    - Se hace la configuración del título y el tamaño de la ventana.
+    - Se crea un lienzo para mostrar la imagen dellogo del aeropuerto.
+    - Se agregan títulos y botones para que el usuario seleccione su rol y se pueda avanzar a las siguientes ventanas.
+    """
     for widget in window.winfo_children():
         widget.destroy()
 

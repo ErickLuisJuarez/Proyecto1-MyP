@@ -19,16 +19,11 @@ def pantalla_personal_datos(window, pantalla_principal):
 
     tituloSecundario = Label(window, text="Rellene los siguientes datos", font=("Montserrat", 25, "bold"), fg="#3CA6A6")
     tituloSecundario.grid(column=0, row=1, columnspan=3, padx=150, sticky="n", pady=15)
-
-    Origen = Label(window, text="Origen", font=("Montserrat", 20, "bold"), fg="#026773")
-    Origen.grid(column=0, row=3, padx=(0, 10), pady=15)
-    entradaOrigen = Entry(window, width=20, font=("Montserrat", 15))
-    entradaOrigen.grid(column=1, row=3)
-
-    Destino = Label(window, text="Destino", font=("Montserrat", 20, "bold"), fg="#026773")
-    Destino.grid(column=0, row=4, padx=(0, 10), pady=15)
-    entradaDestino = Entry(window, width=20, font=("Montserrat", 15))
-    entradaDestino.grid(column=1, row=4)
+    
+    ciudad = Label(window, text="Ciudad:", font=("Montserrat", 20, "bold"), fg="#026773")
+    ciudad.grid(column=0, row=3, padx=(0, 10), pady=15)
+    entradaCiudad = Entry(window, width=20, font=("Montserrat", 15))
+    entradaCiudad.grid(column=1, row=3)
 
     PedirTicket = Label(window, text="Ticket:", font=("Montserrat", 20, "bold"), fg="#026773")
     PedirTicket.grid(column=0, row=5, padx=(0, 10), pady=15)

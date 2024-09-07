@@ -1,4 +1,4 @@
-#Proyecto1-MyP: Información del Clima para el AICM
+# Proyecto1-MyP: Información del Clima para el AICM
 
 Aplicación para consultar información del clima diseñada para el personal y clientes del Aeropuerto Internacional de la Ciudad de México.
 
@@ -8,7 +8,7 @@ Python 3.8 o superior
 Tkinter (para la interfaz gráfica)
 Pytest (para las pruebas)
 
-#Instalación
+## Instalación
 
 Sigue estos pasos para instalar las dependencias necesarias en terminal:
 
@@ -21,7 +21,7 @@ Instalar pip (si aún no está instalado)
 Instalar pytest para ejecutar las pruebas
 	sudo pip3 install pytest
 
-#Uso
+## Uso
 
 Para ejecutar la aplicación, sigue estos pasos:
 
@@ -39,7 +39,7 @@ Sigue las instrucciones en pantalla:
    Selecciona tu rol (Cliente o Personal).
    Ingresa los datos requeridos según tu rol. Si tu rol es personal, verifica los datos antes de ingresarlos.
 
-#Ejecutar Tests
+## Ejecutar Tests
 
 Para ejecutar las pruebas del proyecto:
 
@@ -55,7 +55,7 @@ Para ejecutar las pruebas del proyecto:
 
     	pytest
 
-#Integrantes del equipo y sus roles:
+## Integrantes del equipo y sus roles:
 
   Líder del equipo: Diego Eduardo Peña Villegas
   Frontend: Brenda Rodríguez Jiménez, Oscar Iván Sánchez González, Tomás Barrera Hernández

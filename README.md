@@ -38,6 +38,7 @@ Ejecuta la aplicación con el siguiente comando:
 Sigue las instrucciones en pantalla:
    Selecciona tu rol (Cliente o Personal).
    Ingresa los datos requeridos según tu rol. Si tu rol es personal, verifica los datos antes de ingresarlos.
+   -Por el momento, como es la versión beta, para poder acceder a los datos del clima se debe ingresar al apartado de "cliente" y posteriormente en la sección de ciudad, colocar una ciudad o IATA. En el apartado de ticket, puede colocar cualquier palabra alfanumérica de 6 dígitos)
 
 ## Ejecutar Tests
 

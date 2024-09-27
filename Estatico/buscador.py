@@ -157,43 +157,76 @@ def obtener_datos_climaticos_por_ticket(ticket_usuario, datos):
     else:
         return None, None, None, None
 
+def identificar_tipo_entrada(entrada_usuario):
+    """
+    Identifica si la entrada del usuario es un código IATA, una ciudad o un ticket.
+
+    Args:
+        entrada_usuario (str): Entrada proporcionada por el usuario.
+
+    Returns:
+        str: Tipo de entrada ('iata', 'ciudad', 'ticket').
+    """
+    entrada_usuario = entrada_usuario.strip()
+    
+    if len(entrada_usuario) == 3 and entrada_usuario.isalpha():
+        return 'iata'
+    
+    if len(entrada_usuario) == 6 and any(char.isdigit() for char in entrada_usuario):
+        return 'ticket'
+    
+    if len(entrada_usuario) >= 6 and entrada_usuario.isalpha():
+        return 'ciudad'
+    
+    return None
+
+def obtener_datos_climaticos(entrada_usuario, datos):
+    """
+    Determina el tipo de entrada del usuario y obtiene los datos climáticos correspondientes.
+
+    Args:
+        entrada_usuario (str): Entrada proporcionada por el usuario.
+        datos (list): Lista de diccionarios representando las filas del archivo CSV.
+
+    Returns:
+        tuple: Datos climáticos según el tipo de entrada del usuario.
+    """
+    tipo_entrada = identificar_tipo_entrada(entrada_usuario)
+
+    if tipo_entrada == 'iata':
+        iata_corregido, datos_climaticos = obtener_datos_climaticos_por_iata(entrada_usuario, datos)
+        if iata_corregido:
+            return f"Código IATA: {iata_corregido}", datos_climaticos
+        else:
+            return "No se pudieron obtener los datos climáticos para el código IATA.", None
+    
+    elif tipo_entrada == 'ciudad':
+        iata_corregido, datos_climaticos = obtener_datos_climaticos_por_ciudad(entrada_usuario, datos)
+        if iata_corregido:
+            return f"Código IATA: {iata_corregido}", datos_climaticos
+        else:
+            return "No se pudieron obtener los datos climáticos para la ciudad.", None
+    
+    elif tipo_entrada == 'ticket':
+        iata_origen, datos_climaticos_origen, iata_destino, datos_climaticos_destino = obtener_datos_climaticos_por_ticket(entrada_usuario, datos)
+        if iata_origen and iata_destino:
+            return (f"Código IATA de origen: {iata_origen}", f"Datos climáticos en origen: {datos_climaticos_origen}", 
+                    f"Código IATA de destino: {iata_destino}", f"Datos climáticos en destino: {datos_climaticos_destino}")
+        else:
+            return "No se pudieron obtener los datos climáticos para el ticket.", None
+
+    else:
+        return "La entrada no es válida como código IATA, ciudad o número de ticket.", None
+
+
 if __name__ == "__main__":
     datos = dataset.cargar_datos_de_archivo()
 
-    opcion = input("¿Deseas buscar por nombre de ciudad, por código IATA o por número de ticket? (ciudad/iata/ticket): ").strip().lower()
+    entrada_usuario = input("Introduce un código IATA, nombre de ciudad o número de ticket: ").strip()
+    resultado = obtener_datos_climaticos(entrada_usuario, datos)
 
-    if opcion == 'ciudad':
-        nombre_ciudad_usuario = input("Introduce el nombre de la ciudad: ")
-        iata_corregido, datos_climaticos = obtener_datos_climaticos_por_ciudad(nombre_ciudad_usuario, datos)
-
-        if iata_corregido:
-            print(f"Código IATA: {iata_corregido}")
-            print(f"Datos climáticos: {datos_climaticos}")
-        else:
-            print("No se pudieron obtener los datos climáticos.")
-    
-    elif opcion == 'iata':
-        iata_usuario = input("Introduce el código IATA: ").strip().upper()
-        iata_corregido, datos_climaticos = obtener_datos_climaticos_por_iata(iata_usuario, datos)
-
-        if iata_corregido:
-            print(f"Código IATA corregido: {iata_corregido}")
-            print(f"Datos climáticos: {datos_climaticos}")
-        else:
-            print("No se pudieron obtener los datos climáticos.")
-
-    elif opcion == 'ticket':
-        ticket_usuario = input("Introduce el número de ticket: ").strip()
-        iata_origen, datos_climaticos_origen, iata_destino, datos_climaticos_destino = obtener_datos_climaticos_por_ticket(ticket_usuario, datos)
-
-        if iata_origen and iata_destino:
-            print(f"Código IATA de origen: {iata_origen}")
-            print(f"Datos climáticos en origen: {datos_climaticos_origen}")
-            print(f"Código IATA de destino: {iata_destino}")
-            print(f"Datos climáticos en destino: {datos_climaticos_destino}")
-        else:
-            print("No se pudieron obtener los datos climáticos para el ticket proporcionado.")
-
+    if isinstance(resultado, tuple):
+        for item in resultado:
+            print(item)
     else:
-        print("Opción no válida.")
-    
+        print(resultado)

@@ -158,3 +158,43 @@ def obtener_nombre_ciudad_por_iata(iata):
     """
     diccionario_ciudades = crear_diccionario_ciudades()
     return diccionario_ciudades.get(iata, None)
+
+def crear_diccionario_tickets():
+    """
+    Crea un diccionario donde las claves son los números de ticket (6 caracteres alfanuméricos)
+    y los valores son tuplas que contienen el IATA de origen y destino asociados.
+
+    Returns:
+        dict: Diccionario con los tickets como claves y los IATA de origen y destino como valores.
+    """
+    diccionario_tickets = {}
+
+    with open(cache.DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
+        lector = csv.reader(archivo)
+        next(lector)  # Saltar la cabecera
+
+        for fila in lector:
+            iata_origen = fila[8].strip() 
+            iata_destino = fila[9].strip() 
+            ticket = fila[10].strip() 
+
+            if len(ticket) == 6:
+                diccionario_tickets[ticket] = (iata_origen, iata_destino)
+
+    return diccionario_tickets
+
+def obtener_info_por_ticket(ticket, diccionario_tickets):
+    """
+    Valida que el ticket tenga exactamente 6 caracteres y obtiene la información del ticket.
+    
+    Args:
+        ticket (str): El número de ticket a validar y consultar.
+        diccionario_tickets (dict): Diccionario que contiene la información de los tickets.
+    
+    Returns:
+        tuple or str: Devuelve la información del ticket o un mensaje de error si es inválido.
+    """
+    if len(ticket) != 6:
+        return None, "El ticket debe tener exactamente 6 caracteres."
+
+    return diccionario_tickets.get(ticket, (None, "Ticket no encontrado"))

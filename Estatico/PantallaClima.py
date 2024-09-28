@@ -1,7 +1,7 @@
 from tkinter import *
 import buscador 
 import dataset  
-def pantalla_clima(window, pantalla_personal_datos, pantalla_principal, ciudad_origen):
+def pantalla_clima(window, pantalla_principal, Pedir_datos):
     """
     Muestra la pantalla de clima con los datos climáticos de la ciudad especificada por el usuario.
 

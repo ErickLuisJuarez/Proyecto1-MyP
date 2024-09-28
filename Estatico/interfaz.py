@@ -12,7 +12,7 @@ def pantalla_principal(window):
     window.title("Consulta de clima")
     window.minsize(width=100, height=700)
     window.config(padx=20, pady=20)
-    window.geometry("1300x1000")
+    window.geometry("1400x1000")
     
     lienzo = Canvas(window, width=200, height=200) 
     window.logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")

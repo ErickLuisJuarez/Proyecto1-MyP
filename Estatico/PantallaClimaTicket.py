@@ -2,6 +2,15 @@ from tkinter import *
 import buscador 
 import dataset  
 
+def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
+    ancho_pantalla = window.winfo_screenwidth()
+    alto_pantalla = window.winfo_screenheight()
+
+    nuevo_ancho = int(ancho_pantalla * ancho_porcentaje)
+    nuevo_alto = int(alto_pantalla * alto_porcentaje)
+
+    window.geometry(f"{nuevo_ancho}x{nuevo_alto}")
+
 def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     """
     Muestra la pantalla de clima con los datos climáticos de la ciudad especificada por el usuario.
@@ -15,7 +24,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
         widget.destroy()
 
     window.title("Clima")
-    window.geometry("1500x1200")
+    ajustar_tamano_ventana(window)
 
     datos = dataset.cargar_datos_de_archivo()
 
@@ -68,53 +77,51 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
 
-    # Clima de Origen
-    ClimaOrigen = Label(frame_logo_titulo, text="Clima del lugar \n de origen", font=("Montserrat", 40, "bold"), fg="#011640")
+    ClimaOrigen = Label(frame_logo_titulo, text="Clima del lugar \n de origen", font=("Montserrat", 20, "bold"), fg="#011640")
     ClimaOrigen.grid(column=1, row=0, padx=(20, 10), pady=20, sticky="w")
 
-    TemperaturaOrigen = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_origen['temperatura']} °c", font=("Montserrat", 30, "bold"), fg="#011640")
+    TemperaturaOrigen = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_origen['temperatura']} °c", font=("Montserrat", 18, "bold"), fg="#011640")
     TemperaturaOrigen.grid(column=1, row=1, padx=(20, 10), pady=(10, 0), sticky="w")
 
-    HumedadOrigen = Label(frame_desliz, text=f"Humedad: \n {datos_climaticos_origen['humedad']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    HumedadOrigen = Label(frame_desliz, text=f"Humedad: \n {datos_climaticos_origen['humedad']}", font=("Montserrat", 18, "bold"), fg="#011640")
     HumedadOrigen.grid(column=1, row=2, padx=(40, 10), pady=10, sticky="w")
 
-    ProbabilidaLluviaOrigen = Label(frame_desliz, text=f"Probabilidad \n de lluvia: \n {datos_climaticos_origen['probabilidad_lluvia']}%", font=("Montserrat", 30, "bold"), fg="#011640")
+    ProbabilidaLluviaOrigen = Label(frame_desliz, text=f"Probabilidad \n de lluvia: \n {datos_climaticos_origen['probabilidad_lluvia']}%", font=("Montserrat", 18, "bold"), fg="#011640")
     ProbabilidaLluviaOrigen.grid(column=1, row=3, padx=(30, 10), pady=10, sticky="w")
 
-    PresionOrigen = Label(frame_desliz, text=f"Presión: \n {datos_climaticos_origen['presion']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    PresionOrigen = Label(frame_desliz, text=f"Presión: \n {datos_climaticos_origen['presion']}", font=("Montserrat", 18, "bold"), fg="#011640")
     PresionOrigen.grid(column=1, row=4, padx=(80, 10), pady=10, sticky="w")
 
-    VelocidadVientoOrigen = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_origen['velocidad_viento']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    VelocidadVientoOrigen = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_origen['velocidad_viento']}", font=("Montserrat", 18, "bold"), fg="#011640")
     VelocidadVientoOrigen.grid(column=1, row=5, padx=(40, 10), pady=10, sticky="w")
 
-    window.flecaDer = PhotoImage(file="Recursos/FlechaDer.png").subsample(3, 3)
+    window.flecaDer = PhotoImage(file="Recursos/FlechaDer.png").subsample(4, 4) 
     lienzo = Canvas(frame_logo_titulo, width=200, height=200)
     lienzo.create_image(100, 100, image=window.flecaDer)
     lienzo.grid(column=2, row=0, padx=(0, 10))
 
-    # Clima de Destino
-    ClimaLlegada = Label(frame_logo_titulo, text="Clima del lugar \n de destino", font=("Montserrat", 40, "bold"), fg="#011640")
+    
+    ClimaLlegada = Label(frame_logo_titulo, text="Clima del lugar \n de destino", font=("Montserrat", 20, "bold"), fg="#011640")
     ClimaLlegada.grid(column=3, row=0, padx=(20, 10), pady=20, sticky="w")
 
-    TemperaturaLlegada = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_destino['temperatura']} °c", font=("Montserrat", 30, "bold"), fg="#011640")
+    TemperaturaLlegada = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_destino['temperatura']} °c", font=("Montserrat", 18, "bold"), fg="#011640")
     TemperaturaLlegada.grid(column=3, row=1, padx=(20, 10), pady=(10, 0), sticky="w")
 
-    HumedadLlegada = Label(frame_desliz, text=f"Humedad: \n {datos_climaticos_destino['humedad']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    HumedadLlegada = Label(frame_desliz, text=f"Humedad: \n {datos_climaticos_destino['humedad']}", font=("Montserrat", 18, "bold"), fg="#011640")
     HumedadLlegada.grid(column=3, row=2, padx=(40, 10), pady=10, sticky="w")
 
-    ProbabilidaLluviaLlegada = Label(frame_desliz, text=f"Probabilidad \n de lluvia: \n {datos_climaticos_destino['probabilidad_lluvia']}% ", font=("Montserrat", 30, "bold"), fg="#011640")
+    ProbabilidaLluviaLlegada = Label(frame_desliz, text=f"Probabilidad \n de lluvia: \n {datos_climaticos_destino['probabilidad_lluvia']}% ", font=("Montserrat", 18, "bold"), fg="#011640")
     ProbabilidaLluviaLlegada.grid(column=3, row=3, padx=(30, 10), pady=10, sticky="w")
 
-    PresionLlegada = Label(frame_desliz, text=f"Presión: \n{datos_climaticos_destino['presion']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    PresionLlegada = Label(frame_desliz, text=f"Presión: \n{datos_climaticos_destino['presion']}", font=("Montserrat", 18, "bold"), fg="#011640")
     PresionLlegada.grid(column=3, row=4, padx=(80, 10), pady=10, sticky="w")
 
-    VelocidadVientoLlegada = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_destino['velocidad_viento']}", font=("Montserrat", 30, "bold"), fg="#011640")
+    VelocidadVientoLlegada = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_destino['velocidad_viento']}", font=("Montserrat", 18, "bold"), fg="#011640")
     VelocidadVientoLlegada.grid(column=3, row=5, padx=(40, 10), pady=10, sticky="w")
 
-    # Botón de regreso
-    window.BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(1, 1)
+    window.BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)
     regreso = Button(frame_desliz, image=window.BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
-    regreso.grid(column=1, row=9, columnspan=2, pady=20, padx=(400, 10), sticky="ew")
+    regreso.grid(column=1, row=9, columnspan=2, pady=20, padx=(200, 10), sticky="ew")
 
 if __name__ == "__main__":
     root = Tk()

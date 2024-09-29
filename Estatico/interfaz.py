@@ -3,6 +3,18 @@ from PantallaClimaTicket import pantalla_clima_ticket
 from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
 import dataset
 
+def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
+    
+    ancho_pantalla = window.winfo_screenwidth()
+    alto_pantalla = window.winfo_screenheight()
+
+    
+    nuevo_ancho = int(ancho_pantalla * ancho_porcentaje)
+    nuevo_alto = int(alto_pantalla * alto_porcentaje)
+
+
+    window.geometry(f"{nuevo_ancho}x{nuevo_alto}")
+
 def pantalla_principal(window):
     """
     Esta es la pantalla principal de inicio al ejecutar el programa de consulta de clima.
@@ -13,32 +25,33 @@ def pantalla_principal(window):
     window.title("Consulta de clima")
     window.minsize(width=100, height=700)
     window.config(padx=20, pady=20)
-    window.geometry("1400x1000")
-    
+
+    ajustar_tamano_ventana(window)
+
     lienzo = Canvas(window, width=200, height=200) 
     window.logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0)
 
-    titulo1 = Label(text="Consulta de clima", font=("Montserrat", 80, "bold"), fg="#011640")
+    titulo1 = Label(text="Consulta de clima", font=("Montserrat", 40, "bold"), fg="#011640") 
     titulo1.grid(column=1, row=0)
 
-    titulo2 = Label(window, text="Introduzca IATA, Ciudad o Ticket \n para realizar la búsqueda", font=("Montserrat", 25, "bold"), fg="#3CA6A6")
-    titulo2.grid(column=0, row=1, columnspan=3, padx=150, pady=50, sticky="n")
+    titulo2 = Label(window, text="Introduzca IATA, Ciudad o Ticket \n para realizar la búsqueda", font=("Montserrat", 20, "bold"), fg="#3CA6A6")
+    titulo2.grid(column=0, row=1, columnspan=3, padx=100, pady=30, sticky="n")
 
-    Pedir_datos = Label(window, text="Datos:", font=("Montserrat", 20, "bold"), fg="#026773")
+    Pedir_datos = Label(window, text="Datos:", font=("Montserrat", 15, "bold"), fg="#026773")
     Pedir_datos.grid(column=0, row=2, pady=15)
     
-    Datos_entrada = Entry(window, width=20, font=("Montserrat", 15))
+    Datos_entrada = Entry(window, width=20, font=("Montserrat", 12))
     Datos_entrada.grid(column=1, row=2)
 
-    mensaje_invalido = Label(window, text="", font=("Montserrat", 20), fg="red")
+    mensaje_invalido = Label(window, text="", font=("Montserrat", 15), fg="red")
     mensaje_invalido.grid(column=0, row=3, columnspan=2)
 
     BotonSiguiente = PhotoImage(file="Recursos/BotonSiguiente.png")
     window.boton_siguiente_imagen = BotonSiguiente
     siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda: validar_datos(window, Datos_entrada, mensaje_invalido))
-    siguiente.grid(column=1, row=4, pady=50)
+    siguiente.grid(column=1, row=4, pady=30)
 
     def validar_datos(window, entrada, mensaje_invalido):
         """

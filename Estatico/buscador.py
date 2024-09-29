@@ -11,33 +11,37 @@ import difflib
 
 def corregir_nombre_ciudad(nombre_ciudad_usuario):
     """
-    Corrige el nombre de la ciudad proporcionado por el usuario.
-    Utiliza el diccionario de ciudades para encontrar una coincidencia.
+    Corrige el nombre de la ciudad proporcionado por el usuario y devuelve el código IATA asociado.
+    Usa coincidencias aproximadas para manejar errores tipográficos y nombres con espacios.
 
     Args:
         nombre_ciudad_usuario (str): Nombre de la ciudad ingresado por el usuario.
 
     Returns:
-        tuple: Código IATA corregido si se encuentra una coincidencia, 
+        tuple: Código IATA corregido si se encuentra una coincidencia,
                sugerencia de ciudad corregida si el nombre es similar pero incorrecto.
     """
     diccionario_ciudades = dataset.crear_diccionario_ciudades()
-    nombre_ciudad_usuario = nombre_ciudad_usuario.lower()
+    
+    nombre_ciudad_usuario = nombre_ciudad_usuario.lower().strip()
+    nombre_ciudad_usuario = ' '.join(nombre_ciudad_usuario.split())
     nombre_ciudad_usuario = normalize('NFKD', nombre_ciudad_usuario).encode('ASCII', 'ignore').decode('ASCII')
-    nombres_ciudades = [normalize('NFKD', ciudad.lower()).encode('ASCII', 'ignore').decode('ASCII') for ciudad in diccionario_ciudades.values()]
-    coincidencias = difflib.get_close_matches(nombre_ciudad_usuario, nombres_ciudades, n=1, cutoff=0.6)
+    
+    nombres_ciudades = {iata: normalize('NFKD', ciudad.lower()).encode('ASCII', 'ignore').decode('ASCII') 
+                        for iata, ciudad in diccionario_ciudades.items()}
+    
+    coincidencias = difflib.get_close_matches(nombre_ciudad_usuario, nombres_ciudades.values(), n=1, cutoff=0.5)
 
     if coincidencias:
         ciudad_corregida = coincidencias[0]
 
-        for iata, ciudad in diccionario_ciudades.items():
-            if normalize('NFKD', ciudad.lower()).encode('ASCII', 'ignore').decode('ASCII') == ciudad_corregida:
+        for iata, ciudad_normalizada in nombres_ciudades.items():
+            if ciudad_normalizada == ciudad_corregida:
                 if nombre_ciudad_usuario != ciudad_corregida:
-                    return iata, f"Tal vez quisiste buscar: {ciudad}"
+                    return iata, f"Tal vez quisiste buscar: {diccionario_ciudades[iata]}"
                 return iata, None
 
     return None, "No se encontró ninguna coincidencia cercana."
-
 
 def corregir_codigo_iata(iata_usuario):
     """
@@ -96,7 +100,6 @@ def obtener_datos_climaticos_por_ciudad(nombre_ciudad_usuario, datos):
             datos_climaticos = cache.extraer_informacion_relevante(json_data)
             return iata_corregido, datos_climaticos
     return None, None
-
 
 def obtener_datos_climaticos_por_iata(iata_usuario, datos):
     """
@@ -175,7 +178,7 @@ def identificar_tipo_entrada(entrada_usuario):
     if len(entrada_usuario) == 6 and any(char.isdigit() for char in entrada_usuario):
         return 'ticket'
     
-    if len(entrada_usuario) >= 6 and entrada_usuario.isalpha():
+    if any(char.isalpha() for char in entrada_usuario):
         return 'ciudad'
     
     return None

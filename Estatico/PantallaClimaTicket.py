@@ -2,7 +2,7 @@ from tkinter import *
 import buscador 
 import dataset  
 
-def pantalla_clima(window, pantalla_principal, ticket_usuario):
+def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     """
     Muestra la pantalla de clima con los datos climáticos de la ciudad especificada por el usuario.
 
@@ -118,5 +118,5 @@ def pantalla_clima(window, pantalla_principal, ticket_usuario):
 
 if __name__ == "__main__":
     root = Tk()
-    pantalla_clima(root, lambda w: print("Pantalla principal"), "12345")
+    pantalla_clima_ticket(root, lambda w: print("Pantalla principal"), "12345")
     root.mainloop()

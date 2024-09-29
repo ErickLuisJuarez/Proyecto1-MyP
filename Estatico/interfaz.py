@@ -1,5 +1,6 @@
 from tkinter import *
-from PantallaClima import pantalla_clima
+from PantallaClimaTicket import pantalla_clima_ticket
+from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
 import dataset
 
 def pantalla_principal(window):
@@ -41,18 +42,47 @@ def pantalla_principal(window):
 
     def validar_datos(window, entrada, mensaje_invalido):
         """
-        Valida la longitud de la entrada de datos. Debe tener entre 3 y 10 caracteres.
+        Valida la longitud de la entrada de datos y determina el tipo de entrada (IATA, ciudad o ticket).
         """
         datos = entrada.get().strip()  # Obtener el texto del Entry
         print(f"Datos ingresados: {datos}")
 
-        if 3 <= len(datos) <= 10:
+        tipo_entrada = identificar_tipo_entrada(datos)
+
+        if tipo_entrada == 'ticket':
+            print("Ticket identificado. Avanzando a la pantalla de ticket.") 
             mensaje_invalido.config(text="")
-            print("Datos válidos. Avanzando a la siguiente pantalla.") 
-            pantalla_clima(window, pantalla_principal, datos)  # Pasar el valor del Entry
+            pantalla_clima_ticket(window, pantalla_principal, datos)  # Pasar el valor del ticket
+        elif tipo_entrada in ['iata', 'ciudad']:
+            print(f"{tipo_entrada.capitalize()} identificado. Avanzando a la pantalla de IATA/Ciudad.")
+            mensaje_invalido.config(text="")
+            pantalla_clima_iata_ciudad(window, pantalla_principal, datos)  # Pasar el valor de la ciudad o IATA
         else:
-            mensaje_invalido.config(text="Los datos deben tener entre 3 y 10 caracteres")
+            mensaje_invalido.config(text="Entrada inválida. Debe ser IATA, Ciudad o Ticket.")
             print("Datos inválidos. Por favor, ingrese datos válidos.")
+
+def identificar_tipo_entrada(entrada_usuario):
+    """
+    Identifica si la entrada del usuario es un código IATA, una ciudad o un ticket.
+
+    Args:
+        entrada_usuario (str): Entrada proporcionada por el usuario.
+
+    Returns:
+        str: Tipo de entrada ('iata', 'ciudad', 'ticket').
+    """
+    entrada_usuario = entrada_usuario.strip()
+    
+    if len(entrada_usuario) == 3 and entrada_usuario.isalpha():
+        return 'iata'
+    
+    if len(entrada_usuario) == 6 and any(char.isdigit() for char in entrada_usuario):
+        return 'ticket'
+    
+    if any(char.isalpha() for char in entrada_usuario):
+        return 'ciudad'
+    
+    return None
 
 window = Tk()
 pantalla_principal(window)

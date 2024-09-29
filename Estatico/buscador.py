@@ -240,6 +240,30 @@ def obtener_nombre_ciudad(nombre_ciudad_usuario):
     
     return None
 
+def obtener_nombres_ciudades(ticket):
+    """
+    Obtiene los nombres de las ciudades de origen y destino dados un número de ticket.
+
+    Args:
+        ticket (str): Número de ticket (debe ser de 6 caracteres alfanuméricos).
+
+    Returns:
+        tuple: Nombres de la ciudad de origen y destino, o un mensaje de error si el ticket no es válido.
+    """
+    diccionario_tickets = dataset.crear_diccionario_tickets()  # Obtener el diccionario de tickets
+
+    if ticket in diccionario_tickets:
+        iata_origen, iata_destino = diccionario_tickets[ticket]  # Obtener IATA de origen y destino
+
+        nombre_ciudad_origen = obtener_nombre_ciudad(iata_origen)  # Obtener el nombre de la ciudad de origen
+        nombre_ciudad_destino = obtener_nombre_ciudad(iata_destino)  # Obtener el nombre de la ciudad de destino
+
+        return nombre_ciudad_origen, nombre_ciudad_destino  # Retornar los nombres de las ciudades
+
+    return None, "Ticket no válido."  # Retornar un mensaje de error si el ticket no existe
+
+
+    
 if __name__ == "__main__":
     datos = dataset.cargar_datos_de_archivo()
 

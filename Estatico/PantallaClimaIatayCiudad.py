@@ -1,7 +1,6 @@
 from tkinter import *
 import buscador
 import dataset
-from buscador import obtener_nombre_ciudad
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
 
@@ -62,7 +61,7 @@ def pantalla_clima_iata_ciudad(window, pantalla_principal, entrada_usuario):
     ClimaTitulo = Label(frame_logo_titulo, text="Clima", font=("Montserrat", 60, "bold"), fg="#011640") 
     ClimaTitulo.grid(column=2, row=0, padx=(150, 10), pady=20, sticky="w")
 
-    Subtitulo = Label(frame_desliz, text=f"Mostrando resultados para {obtener_nombre_ciudad(entrada_usuario).capitalize()}", font=("Montserrat", 22, "italic"), fg="#011640")
+    Subtitulo = Label(frame_desliz, text=f"Mostrando resultados para {buscador.obtener_nombre_ciudad(entrada_usuario).capitalize()}", font=("Montserrat", 22, "italic"), fg="#011640")
     Subtitulo.grid(column=2, row=1, padx=(150, 10), pady=20, sticky="w")
 
     if datos_climaticos:

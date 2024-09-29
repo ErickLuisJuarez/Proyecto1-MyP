@@ -77,7 +77,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
 
-    ClimaOrigen = Label(frame_logo_titulo, text="Clima del lugar \n de origen", font=("Montserrat", 20, "bold"), fg="#011640")
+    ClimaOrigen = Label(frame_logo_titulo, text=f"Clima del lugar \n de origen: \n {buscador.obtener_nombres_ciudades(ticket_usuario)[0]}", font=("Montserrat", 20, "bold"), fg="#011640")
     ClimaOrigen.grid(column=1, row=0, padx=(20, 10), pady=20, sticky="w")
 
     TemperaturaOrigen = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_origen['temperatura']} °c", font=("Montserrat", 18, "bold"), fg="#011640")
@@ -101,7 +101,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     lienzo.grid(column=2, row=0, padx=(0, 10))
 
     
-    ClimaLlegada = Label(frame_logo_titulo, text="Clima del lugar \n de destino", font=("Montserrat", 20, "bold"), fg="#011640")
+    ClimaLlegada = Label(frame_logo_titulo, text=f"Clima del lugar \n de destino: \n {buscador.obtener_nombres_ciudades(ticket_usuario)[1]}", font=("Montserrat", 20, "bold"), fg="#011640")
     ClimaLlegada.grid(column=3, row=0, padx=(20, 10), pady=20, sticky="w")
 
     TemperaturaLlegada = Label(frame_desliz, text=f"Temperatura: \n {datos_climaticos_destino['temperatura']} °c", font=("Montserrat", 18, "bold"), fg="#011640")

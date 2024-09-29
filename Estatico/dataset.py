@@ -171,7 +171,7 @@ def crear_diccionario_tickets():
 
     with open(cache.DATA_SET, mode='r', newline='', encoding='utf-8') as archivo:
         lector = csv.reader(archivo)
-        next(lector)  # Saltar la cabecera
+        next(lector)
 
         for fila in lector:
             iata_origen = fila[8].strip() 

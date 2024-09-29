@@ -222,18 +222,22 @@ def obtener_datos_climaticos(entrada_usuario, datos):
     else:
         return "La entrada no es válida como código IATA, ciudad o número de ticket.", None
 
-def obtener_nombre_ciudad(nombre_ciudad_usuario):
+def obtener_nombre_ciudad(entrada_usuario):
     """
     Obtiene el nombre de la ciudad corregido según la entrada del usuario.
 
     Args:
-        nombre_ciudad_usuario (str): Nombre de la ciudad ingresado por el usuario.
+        entrada_usuario (str): La entrada del usuario: IATA o nombre de la ciudad.
+
     Returns:
-        str: Nombre de la ciudad corregido si se encuentra una coincidencia,
-             None si no se encuentra ninguna coincidencia cercana.
+        str: Nombre de la ciudad corregido, None si no se encuentra ninguna coincidencia.
     """
     diccionario_ciudades = dataset.crear_diccionario_ciudades()
-    iata_corregido, _ = corregir_nombre_ciudad(nombre_ciudad_usuario)
+
+    if len(entrada_usuario) == 3:
+        return dataset.obtener_nombre_ciudad_por_iata(entrada_usuario)
+    
+    iata_corregido, _ = corregir_nombre_ciudad(entrada_usuario)
     
     if iata_corregido:
         return diccionario_ciudades[iata_corregido]
@@ -250,17 +254,17 @@ def obtener_nombres_ciudades(ticket):
     Returns:
         tuple: Nombres de la ciudad de origen y destino, o un mensaje de error si el ticket no es válido.
     """
-    diccionario_tickets = dataset.crear_diccionario_tickets()  # Obtener el diccionario de tickets
+    diccionario_tickets = dataset.crear_diccionario_tickets()
 
     if ticket in diccionario_tickets:
-        iata_origen, iata_destino = diccionario_tickets[ticket]  # Obtener IATA de origen y destino
+        iata_origen, iata_destino = diccionario_tickets[ticket]
 
-        nombre_ciudad_origen = obtener_nombre_ciudad(iata_origen)  # Obtener el nombre de la ciudad de origen
-        nombre_ciudad_destino = obtener_nombre_ciudad(iata_destino)  # Obtener el nombre de la ciudad de destino
+        nombre_ciudad_origen = obtener_nombre_ciudad(iata_origen)
+        nombre_ciudad_destino = obtener_nombre_ciudad(iata_destino)
 
-        return nombre_ciudad_origen, nombre_ciudad_destino  # Retornar los nombres de las ciudades
+        return nombre_ciudad_origen, nombre_ciudad_destino 
 
-    return None, "Ticket no válido."  # Retornar un mensaje de error si el ticket no existe
+    return "None", "Ticket no válido."
 
 
     

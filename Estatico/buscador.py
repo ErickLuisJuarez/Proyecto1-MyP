@@ -101,6 +101,7 @@ def obtener_datos_climaticos_por_ciudad(nombre_ciudad_usuario, datos):
             return iata_corregido, datos_climaticos
     return None, None
 
+
 def obtener_datos_climaticos_por_iata(iata_usuario, datos):
     """
     Obtiene los datos climáticos para una ciudad proporcionada por el código IATA.

@@ -222,6 +222,23 @@ def obtener_datos_climaticos(entrada_usuario, datos):
     else:
         return "La entrada no es válida como código IATA, ciudad o número de ticket.", None
 
+def obtener_nombre_ciudad(nombre_ciudad_usuario):
+    """
+    Obtiene el nombre de la ciudad corregido según la entrada del usuario.
+
+    Args:
+        nombre_ciudad_usuario (str): Nombre de la ciudad ingresado por el usuario.
+    Returns:
+        str: Nombre de la ciudad corregido si se encuentra una coincidencia,
+             None si no se encuentra ninguna coincidencia cercana.
+    """
+    diccionario_ciudades = dataset.crear_diccionario_ciudades()
+    iata_corregido, _ = corregir_nombre_ciudad(nombre_ciudad_usuario)
+    
+    if iata_corregido:
+        return diccionario_ciudades[iata_corregido]
+    
+    return None
 
 if __name__ == "__main__":
     datos = dataset.cargar_datos_de_archivo()

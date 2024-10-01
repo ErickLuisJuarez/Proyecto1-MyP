@@ -55,7 +55,7 @@ def pantalla_principal(window):
     mensaje_invalido = Label(window, text="", font=("Montserrat", 15), fg="red")
     mensaje_invalido.grid(column=0, row=3, columnspan=2)
 
-    Anuncio1 = Label(text="Compra aquí \n tu boleto!", font=("Montserrat", 30, "bold"), fg="#011640") 
+    Anuncio1 = Label(text="¡Compra aquí \n tu boleto!", font=("Montserrat", 30, "bold"), fg="#011640")
     Anuncio1.grid(column=2, row=0, padx=50)
 
     def abrir_aeropuerto():
@@ -72,7 +72,7 @@ def pantalla_principal(window):
     boleto = Button(window, image=window.BotonBoleto, borderwidth=0, command=abrir_aeropuerto)
     boleto.grid(column=2, row=1, padx=50)
 
-    Anuncio2 = Label(text="Realiza reserva \n de hotel aquí!", font=("Montserrat", 30, "bold"), fg="#011640") 
+    Anuncio2 = Label(text="¡Realiza reserva \n de hotel aquí!", font=("Montserrat", 30, "bold"), fg="#011640")
     Anuncio2.grid(column=2, row=2, padx=50)
 
     def abrir_trivago():

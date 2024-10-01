@@ -4,8 +4,8 @@ y buscar información almacenada en el cache.
 
 Creado por Erick Luis Juárez
 """
-import dataset
-import cache
+from . import dataset
+from . import cache
 from unicodedata import normalize
 import difflib
 

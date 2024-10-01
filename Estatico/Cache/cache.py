@@ -12,7 +12,7 @@ import os
 cache = {}
 
 API_KEY = "a7fe8465c127fbb019e08a08ab29d0bd"
-DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), 'CSV')
+DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
 DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1- v2 con tickets resumidos - dataset1.csv')
 
 

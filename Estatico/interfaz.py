@@ -1,7 +1,7 @@
 from tkinter import *
 from PantallaClimaTicket import pantalla_clima_ticket
 from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
-import dataset
+from Cache import dataset
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
     """

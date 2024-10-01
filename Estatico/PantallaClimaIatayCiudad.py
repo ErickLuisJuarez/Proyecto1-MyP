@@ -1,6 +1,6 @@
 from tkinter import *
-import buscador
-import dataset
+from Cache import buscador
+from Cache import dataset
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
     """

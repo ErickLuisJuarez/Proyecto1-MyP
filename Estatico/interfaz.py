@@ -2,6 +2,7 @@ from tkinter import *
 from PantallaClimaTicket import pantalla_clima_ticket
 from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
 from Cache import dataset
+import webbrowser
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
     """
@@ -66,6 +67,7 @@ def pantalla_principal(window):
          """
         url = "https://acortar.link/sDOAlu"
         webbrowser.open(url)
+
     window.BotonBoleto = PhotoImage(file="Img/Boleto.png").subsample(15,15)
     boleto = Button(window, image=window.BotonBoleto, borderwidth=0, command=abrir_aeropuerto)
     boleto.grid(column=2, row=1, padx=50)
@@ -76,12 +78,10 @@ def pantalla_principal(window):
     def abrir_trivago():
         """
         Abre el navegador web en la página para reservar hoteles.
-
-        Args:
-            None
         """
         url = "https://acortar.link/PvQw9P"
-        webbrowser.open(url)     
+        webbrowser.open(url)
+
     window.BotonHotel = PhotoImage(file="Img/Hotel.png").subsample(3, 3)
     hotel = Button(window, image=window.BotonHotel, borderwidth=0, command=abrir_trivago)
     hotel.grid(column=2, row=3, padx=50)

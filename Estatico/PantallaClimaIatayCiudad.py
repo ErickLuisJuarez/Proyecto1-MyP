@@ -53,7 +53,7 @@ def pantalla_clima_iata_ciudad(window, pantalla_principal, entrada_usuario):
     frame_logo_titulo = Frame(frame_desliz)
     frame_logo_titulo.grid(column=0, row=0, padx=(20, 10), pady=20, sticky="ew", columnspan=4)
 
-    window.logoaeropuerto = PhotoImage(file="Recursos/LogoAeropuerto.png")
+    window.logoaeropuerto = PhotoImage(file="Img/LogoAeropuerto.png")
     lienzo = Canvas(frame_logo_titulo, width=200, height=200)
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=1, row=0, padx=(0, 10))
@@ -83,7 +83,7 @@ def pantalla_clima_iata_ciudad(window, pantalla_principal, entrada_usuario):
         error_label = Label(frame_desliz, text=resultado, font=("Montserrat", 24, "bold"), fg="red")  
         error_label.grid(column=2, row=1, padx=(250, 10), pady=(10, 0), sticky="w")
 
-    window.BotonRegreso = PhotoImage(file="Recursos/BotonRegreso.png").subsample(2, 2)  
+    window.BotonRegreso = PhotoImage(file="Img/BotonRegreso.png").subsample(2, 2)  
     regreso = Button(frame_desliz, image=window.BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=1, row=10, columnspan=2, pady=20, padx=(250, 10), sticky="ew")
 

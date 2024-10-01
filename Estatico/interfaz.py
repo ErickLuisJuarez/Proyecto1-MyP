@@ -4,6 +4,14 @@ from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
 import dataset
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
+    """
+     Ajusta el tamaño de la ventana en función de un porcentaje de la resolución de la pantalla.
+
+    Args:
+        window (Tk): La ventana de la aplicación.
+        ancho_porcentaje (float): El porcentaje del ancho de la pantalla que ocupará la ventana.
+        alto_porcentaje (float): El porcentaje del alto de la pantalla que ocupará la ventana.
+    """
     ancho_pantalla = window.winfo_screenwidth()
     alto_pantalla = window.winfo_screenheight()
     nuevo_ancho = int(ancho_pantalla * ancho_porcentaje)
@@ -12,7 +20,10 @@ def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
 
 def pantalla_principal(window):
     """
-    Esta es la pantalla principal de inicio al ejecutar el programa de consulta de clima.
+     Define la interfaz de la pantalla principal de la aplicación de consulta de clima, incluyendo la entrada de datos y los botones de navegación.
+
+    Args:
+        window (Tk): La ventana principal donde se colocarán los elementos.
     """
     for widget in window.winfo_children():
         widget.destroy()
@@ -47,6 +58,12 @@ def pantalla_principal(window):
     Anuncio1.grid(column=2, row=0, padx=50)
 
     def abrir_aeropuerto():
+        """
+        Abre el navegador web en la página para la compra de boletos de aeropuerto.
+
+        Args:
+            None
+         """
         url = "https://acortar.link/sDOAlu"
         webbrowser.open(url)
     window.BotonBoleto = PhotoImage(file="Img/Boleto.png").subsample(15,15)
@@ -57,6 +74,12 @@ def pantalla_principal(window):
     Anuncio2.grid(column=2, row=2, padx=50)
 
     def abrir_trivago():
+        """
+        Abre el navegador web en la página para reservar hoteles.
+
+        Args:
+            None
+        """
         url = "https://acortar.link/PvQw9P"
         webbrowser.open(url)     
     window.BotonHotel = PhotoImage(file="Img/Hotel.png").subsample(3, 3)
@@ -71,12 +94,16 @@ def pantalla_principal(window):
     def validar_datos(window, entrada, mensaje_invalido):
         """
         Valida la longitud de la entrada de datos y determina el tipo de entrada (IATA, ciudad o ticket).
+        Luego redirige a la pantalla correspondiente según el tipo de entrada.
+
+        Args:
+            window (Tk): La ventana principal de la aplicación.
+            entrada (Entry): Campo de entrada de datos.
+            mensaje_invalido (Label): Etiqueta para mostrar mensajes de error.
         """
         datos = entrada.get().strip()  
         print(f"Datos ingresados: {datos}")
-
         tipo_entrada = identificar_tipo_entrada(datos)
-
         if tipo_entrada == 'ticket':
             print("Ticket identificado. Avanzando a la pantalla de ticket.") 
             mensaje_invalido.config(text="")

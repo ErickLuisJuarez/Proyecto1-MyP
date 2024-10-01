@@ -3,25 +3,28 @@ import buscador
 import dataset
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
+    """
+     Ajusta el tamaño de la ventana en función de un porcentaje de la resolución de la pantalla.
 
+    Args:
+        window (Tk): La ventana de la aplicación.
+        ancho_porcentaje (float): El porcentaje del ancho de la pantalla que ocupará la ventana.
+        alto_porcentaje (float): El porcentaje del alto de la pantalla que ocupará la ventana.
+    """
     ancho_pantalla = window.winfo_screenwidth()
     alto_pantalla = window.winfo_screenheight()
-
-    
     nuevo_ancho = int(ancho_pantalla * ancho_porcentaje)
     nuevo_alto = int(alto_pantalla * alto_porcentaje)
-
-    
     window.geometry(f"{nuevo_ancho}x{nuevo_alto}")
 
 def pantalla_clima_iata_ciudad(window, pantalla_principal, entrada_usuario):
     """
-    Muestra la pantalla de clima con los datos climáticos según la entrada del usuario.
+    Muestra la pantalla que despliega la información climática para una ciudad o código IATA introducido por el usuario.
     
     Args:
-        window (Tk): La ventana principal de la aplicación Tkinter.
-        pantalla_principal (function): Función para mostrar la pantalla principal.
-        entrada_usuario (str): Entrada del usuario (puede ser un código IATA, nombre de ciudad o ticket).
+        window (Tk): Ventana principal de la aplicación.
+        pantalla_principal (function): Función que redirige a la pantalla principal.
+        entrada_usuario (str): Entrada proporcionada por el usuario, puede ser un código IATA, una ciudad o un ticket.
     """
     for widget in window.winfo_children():
         widget.destroy()

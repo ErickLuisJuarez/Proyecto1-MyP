@@ -4,6 +4,14 @@ import dataset
 import webbrowser
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
+    """
+     Ajusta el tamaño de la ventana en función de un porcentaje de la resolución de la pantalla.
+
+    Args:
+        window (Tk): La ventana de la aplicación.
+        ancho_porcentaje (float): El porcentaje del ancho de la pantalla que ocupará la ventana.
+        alto_porcentaje (float): El porcentaje del alto de la pantalla que ocupará la ventana.
+    """
     ancho_pantalla = window.winfo_screenwidth()
     alto_pantalla = window.winfo_screenheight()
 
@@ -31,7 +39,6 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
 
     iata_origen, datos_climaticos_origen, iata_destino, datos_climaticos_destino = buscador.obtener_datos_climaticos_por_ticket(ticket_usuario, datos)
 
-    # Si no hay datos climáticos disponibles
     if datos_climaticos_origen is None:
         datos_climaticos_origen = {
             "temperatura": "No disponible",

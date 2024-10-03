@@ -1,7 +1,6 @@
 """
 Módulo para gestionar la carga y caché de datos desde un archivo CSV y solicitudes HTTP.
 
-Creado por Diego Eduardo Peña Villegas 
 """
 
 import csv

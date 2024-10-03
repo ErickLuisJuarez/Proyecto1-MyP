@@ -1,7 +1,5 @@
 """
 Código que gestiona y procesa los datos del archivo dataset1.cvs
-
-Creado por Erick Luis Juárez
 """
 
 from . import cache

@@ -7,10 +7,11 @@ import csv
 import requests
 import json
 import os
+import credenciales
 
 cache = {}
 
-API_KEY = "a7fe8465c127fbb019e08a08ab29d0bd"
+
 DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
 DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1- v2 con tickets resumidos - dataset1.csv')
 
@@ -43,7 +44,7 @@ def construir_url(ciudad):
     """
     Construye la URL para obtener datos climáticos desde la API.
     """
-    return f'http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={API_KEY}&units=metric'
+    return f'http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={credenciales.API_KEY}&units=metric'
 
     
 def obtener_datos_desde_url(url):

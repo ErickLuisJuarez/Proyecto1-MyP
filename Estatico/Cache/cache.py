@@ -7,7 +7,7 @@ import csv
 import requests
 import json
 import os
-import credenciales
+from . import credenciales
 
 cache = {}
 

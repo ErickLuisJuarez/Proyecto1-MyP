@@ -1,8 +1,12 @@
+import os
 from tkinter import *
 from PantallaClimaTicket import pantalla_clima_ticket
 from PantallaClimaIatayCiudad import pantalla_clima_iata_ciudad
 from Cache import dataset
 import webbrowser
+
+dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+carpeta_img = os.path.join(dir_base, 'Estatico', 'Img')
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
     """
@@ -36,7 +40,7 @@ def pantalla_principal(window):
     ajustar_tamano_ventana(window)
 
     lienzo = Canvas(window, width=200, height=200) 
-    window.logoaeropuerto = PhotoImage(file="Img/LogoAeropuerto.png")
+    window.logoaeropuerto = PhotoImage(file=os.path.join(carpeta_img, 'LogoAeropuerto.png'))
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0)
 
@@ -68,7 +72,7 @@ def pantalla_principal(window):
         url = "https://acortar.link/sDOAlu"
         webbrowser.open(url)
 
-    window.BotonBoleto = PhotoImage(file="Img/Boleto.png").subsample(15,15)
+    window.BotonBoleto = PhotoImage(file=os.path.join(carpeta_img, 'Boleto.png')).subsample(15,15)
     boleto = Button(window, image=window.BotonBoleto, borderwidth=0, command=abrir_aeropuerto)
     boleto.grid(column=2, row=1, padx=50)
 
@@ -82,11 +86,11 @@ def pantalla_principal(window):
         url = "https://acortar.link/PvQw9P"
         webbrowser.open(url)
 
-    window.BotonHotel = PhotoImage(file="Img/Hotel.png").subsample(3, 3)
+    window.BotonHotel = PhotoImage(file=os.path.join(carpeta_img, 'Hotel.png')).subsample(3, 3)
     hotel = Button(window, image=window.BotonHotel, borderwidth=0, command=abrir_trivago)
     hotel.grid(column=2, row=3, padx=50)
 
-    BotonSiguiente = PhotoImage(file="Img/BotonSiguiente.png")
+    BotonSiguiente = PhotoImage(file=os.path.join(carpeta_img, 'BotonSiguiente.png'))
     window.boton_siguiente_imagen = BotonSiguiente
     siguiente = Button(window, image=BotonSiguiente, borderwidth=0, command=lambda: validar_datos(window, Datos_entrada, mensaje_invalido))
     siguiente.grid(column=1, row=4, pady=30)

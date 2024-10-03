@@ -6,8 +6,9 @@ from . import cache
 import csv
 import os
 
-DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
-DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'IATA-Ciudad.csv')
+dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')
+DATA_SET = os.path.join(carpeta_csv, 'IATA-Ciudad.csv')
 
 def cargar_datos_de_archivo():
     """

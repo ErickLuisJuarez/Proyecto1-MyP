@@ -1,7 +1,11 @@
+import os
 from tkinter import *
 from Cache import buscador
 from Cache import dataset
 import webbrowser
+
+dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+carpeta_img = os.path.join(dir_base, 'Estatico', 'Img')
 
 def ajustar_tamano_ventana(window, ancho_porcentaje=0.8, alto_porcentaje=0.8):
     """
@@ -80,7 +84,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     frame_logo_titulo = Frame(frame_desliz)
     frame_logo_titulo.grid(column=0, row=0, padx=(20, 10), pady=20, sticky="ew", columnspan=4)
 
-    window.logoaeropuerto = PhotoImage(file="Img/LogoAeropuerto.png")
+    window.logoaeropuerto = PhotoImage(file=os.path.join(carpeta_img, 'LogoAeropuerto.png'))
     lienzo = Canvas(frame_logo_titulo, width=200, height=200)
     lienzo.create_image(100, 100, image=window.logoaeropuerto)
     lienzo.grid(column=0, row=0, padx=(0, 10))
@@ -103,7 +107,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     VelocidadVientoOrigen = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_origen['velocidad_viento']}", font=("Montserrat", 18, "bold"), fg="#011640")
     VelocidadVientoOrigen.grid(column=1, row=5, padx=(40, 10), pady=10, sticky="w")
 
-    window.flecaDer = PhotoImage(file="Img/FlechaDer.png").subsample(4, 4) 
+    window.flecaDer = PhotoImage(file=os.path.join(carpeta_img, 'FlechaDer.png')).subsample(4, 4) 
     lienzo = Canvas(frame_logo_titulo, width=200, height=200)
     lienzo.create_image(100, 100, image=window.flecaDer)
     lienzo.grid(column=2, row=0, padx=(0, 10))
@@ -127,7 +131,7 @@ def pantalla_clima_ticket(window, pantalla_principal, ticket_usuario):
     VelocidadVientoLlegada = Label(frame_desliz, text=f"Velocidad \n del viento: \n {datos_climaticos_destino['velocidad_viento']}", font=("Montserrat", 18, "bold"), fg="#011640")
     VelocidadVientoLlegada.grid(column=3, row=5, padx=(40, 10), pady=10, sticky="w")
 
-    window.BotonRegreso = PhotoImage(file="Img/BotonRegreso.png").subsample(2, 2)
+    window.BotonRegreso = PhotoImage(file=os.path.join(carpeta_img, 'BotonRegreso.png')).subsample(2, 2)
     regreso = Button(frame_desliz, image=window.BotonRegreso, borderwidth=0, command=lambda: pantalla_principal(window))
     regreso.grid(column=1, row=9, columnspan=2, pady=20, padx=(200, 10), sticky="ew")
 

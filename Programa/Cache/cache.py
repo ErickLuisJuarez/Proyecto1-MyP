@@ -6,17 +6,18 @@ Módulo para gestionar la carga y caché de datos desde un archivo CSV y solicit
 import csv
 import requests
 import json
-import os
 import sys
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-import credenciales
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Cache import credenciales
+
+dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')
+DATA_SET = os.path.join(carpeta_csv, 'dataset1- v2 con tickets resumidos - dataset1.csv')
 
  
 cache = {}
 
-
-DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
-DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1- v2 con tickets resumidos - dataset1.csv')
 
 
 def cargar_datos_de_archivo(archivo):

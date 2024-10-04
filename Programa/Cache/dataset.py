@@ -5,11 +5,12 @@ Código que gestiona y procesa los datos del archivo dataset1.cvs
 import csv
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-import cache
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Cache import cache
 
-DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
-DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'IATA-Ciudad.csv')
+dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')
+DATA_SET = os.path.join(carpeta_csv, 'IATA-Ciudad.csv')
 
 def cargar_datos_de_archivo():
     """

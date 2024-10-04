@@ -7,13 +7,17 @@ import csv
 import requests
 import json
 import os
-from . import credenciales
+import sys
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import credenciales
 
-dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')
-DATA_SET = os.path.join(carpeta_csv, 'dataset1- v2 con tickets resumidos - dataset1.csv')
-
+ 
 cache = {}
+
+
+DIRECTORIO_RECURSOS = os.path.join(os.path.dirname(__file__), '..', 'CSV')
+DATA_SET = os.path.join(DIRECTORIO_RECURSOS, 'dataset1- v2 con tickets resumidos - dataset1.csv')
+
 
 def cargar_datos_de_archivo(archivo):
     """
@@ -44,6 +48,12 @@ def construir_url(ciudad):
     Construye la URL para obtener datos climáticos desde la API.
     """
     return f'http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={credenciales.API_KEY}&units=metric'
+
+def construir_url_por_coordenadas(latitud, longitud):
+    """
+    Construye la URL para obtener datos climáticos desde la API utilizando coordenadas.
+    """
+    return f'http://api.openweathermap.org/data/2.5/weather?lat={latitud}&lon={longitud}&appid={credenciales.API_KEY}&units=metric'
 
     
 def obtener_datos_desde_url(url):
@@ -109,25 +119,25 @@ def cargar_datos_con_cache(archivo):
     cache_local = {}
 
     for fila in datos:
-        lat = fila.get('lat')
-        lon = fila.get('lon')
+        latitud1 = fila.get('origin_latitude')
+        longitud1 = fila.get('origin_longitude')
         
-        if not lat or not lon:
-            print(f"Coordenadas no válidas para el registro: {fila}.")
+        if not latitud1 or not longitud1:
+            print(f"Coordenadas no validas para el registro: {fila}.")
             continue
         
-        cache_key = (lat, lon)
+        cache_key = (latitud1, longitud1)
 
         if cache_key not in cache_local:
-            url_completa = construir_url(lat, lon)
+            url_completa = construir_url_por_coordenadas(latitud1, longitud1)
 
             try:
                 json_salida = obtener_datos_desde_url(url_completa)
                 cache_local[cache_key] = extraer_informacion_relevante(json_salida)
             except Exception as e:
-                print(f"Error al obtener datos para las coordenadas {lat}, {lon}: {e}")
+                print(f"Error al obtener datos para las coordenadas {latitud1}, {longitud1}: {e}")
         else:
-            print(f"Datos para las coordenadas {lat}, {lon} encontrados en caché.")
+            print(f"Datos para las coordenadas {latitud1}, {longitud1} encontrados en caché.")
 
     print("Datos procesados y almacenados en caché con éxito.")
     return {'registros': cache_local}

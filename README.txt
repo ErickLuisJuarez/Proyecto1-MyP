@@ -26,6 +26,18 @@ Verifica que pytest esté instalado (si no, sigue los pasos de instalación arri
 Navega a la carpeta Cache con el comando $ cd Cache
 Ejecuta los tests con el comando $ pytest
 
+#Uso continuo del caché: Para mantener el caché actualizado de manera automática, proponemos el uso de cron, una herramienta en sistemas Linux que permite programar la ejecución periódica de scripts.
+Activación de Cron:
+Sigue estos pasos para activar la tarea cron que actualizará los datos en caché cada 5 días:
+1. Abrir el archivo de configuración de cron para el usuario actual:
+En la terminal, ejecuta el siguiente comando:
+$ crontab -e
+Esto abrirá el archivo crontab para que puedas agregar tareas programadas.
+2. Agregar la tarea de actualización:
+Dentro del archivo de configuración que se abre, inserta la siguiente línea:
+0 0 */5 * * /usr/bin/python3 /ruta/a/tu/script/actualizar_datos.py > /ruta/a/tu/CSV/logs/actualizacion.log 2>&1
+Guardar y cerrar el archivo crontab. La tarea de cron quedará activa y se ejecutará automáticamente según la configuración.
+
 #Integrantes del equipo y sus roles:
 Líder del equipo: Diego Eduardo Peña Villegas
 Frontend: Brenda Rodríguez Jiménez, Oscar Iván Sánchez González, Tomás Barrera Hernández

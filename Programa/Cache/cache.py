@@ -9,7 +9,7 @@ import json
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Cache import credenciales
+import credenciales
 
 dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')

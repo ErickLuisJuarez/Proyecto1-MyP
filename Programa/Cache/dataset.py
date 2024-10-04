@@ -5,8 +5,8 @@ Código que gestiona y procesa los datos del archivo dataset1.cvs
 import csv
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Cache import cache
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import cache
 
 dir_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 carpeta_csv = os.path.join(dir_base, '..', 'Estatico', 'CSV')
